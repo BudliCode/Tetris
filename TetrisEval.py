@@ -507,7 +507,6 @@ def eval_genomes(genomes, config):
                 tetris.drop()
             if mv:
                 v, b = tetris.get_values()
-                print(b)
                 output = nets[i].activate((*v.values(), *b))
                 tetris.set_values(*output[:3])
             tetris.update()
