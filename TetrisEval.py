@@ -373,19 +373,20 @@ class TetrisApp:
 
     def calc_row_values(self):
         v = []
-        no_col = True
-        h = 16
-        holes = 0
-        for y in range(config_game["rows"]):
-            if self.board[y][self.stone_x] == 1:
-                no_col = False
-            else:
-                if not no_col:
-                    holes += 1
-            if no_col:
-                h -= 1
-        v.append(h)
-        v.append(holes)
+        for x in range(config_game["cols"]):
+            no_col = True
+            h = 16
+            holes = 0
+            for y in range(config_game["rows"]):
+                if self.board[y][self.stone_x] == 1:
+                    no_col = False
+                else:
+                    if not no_col:
+                        holes += 1
+                if no_col:
+                    h -= 1
+            v.append(h)
+            v.append(holes)
         return v
 
     def get_values(self):
@@ -506,6 +507,7 @@ def eval_genomes(genomes, config):
                 tetris.drop()
             if mv:
                 v, b = tetris.get_values()
+                print(b)
                 output = nets[i].activate((*v.values(), *b))
                 tetris.set_values(*output[:3])
             tetris.update()
