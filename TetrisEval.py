@@ -89,6 +89,7 @@ def new_board():
     return board
 
 
+# Berechnet die Koordinaten des Netzwerkes
 class Neurons:
     def __init__(self):
         self.inputs = []
@@ -140,7 +141,7 @@ class Neurons:
     def sort_hidden_values(self, max_value):
         sorted_values = [[] for _ in range(max_value)]
         for k in self.hidden.keys():
-            sorted_values[self.hidden.get(k)[0]-1].append(k)
+            sorted_values[self.hidden.get(k)[0] - 1].append(k)
         return sorted_values
 
     def calc_d_x(self, sorted_values):
@@ -225,6 +226,7 @@ class Neurons:
                                5, 2)
 
 
+# Erstellt das Netz und malt es auf den Bildschirm
 def render_net(config, genome, pos):
     dot = Neurons()
     inputs = set()
@@ -259,13 +261,13 @@ def render_net(config, genome, pos):
 
 class TetrisApp:
     def __init__(self, pos):
-        self.pos = pos
+        self.pos = pos  # Definiert Position des Spielfeldes
         self.width = config_game['cell_size'] * config_game['cols']
         self.height = config_game['cell_size'] * config_game['rows']
-        self.isAlive = True
-        self.score = 0
-        self.board = new_board()
-        self.new_stone()
+        self.isAlive = True  # Solange der Spieler lebt, läuft das Spiel
+        self.score = 0  # Score wird Fitness-Value
+        self.board = new_board()  # Erstellt leeres Board
+        self.new_stone()  # Erstellt neuen Spielstein
 
     def new_stone(self):
         self.rotation = 0
@@ -279,6 +281,7 @@ class TetrisApp:
                            (self.stone_x, self.stone_y)):
             self.isAlive = False
 
+    # Malt Score oben links
     def draw_score(self):
         msg_image = pygame.font.Font(
             pygame.font.get_default_font(), 12).render(
@@ -290,6 +293,7 @@ class TetrisApp:
             (self.pos[0] + 1) * 170 - msgim_center_x - 15,
             self.pos[1] * 370 + 10))
 
+    # Malt weißen Rahmen
     def draw_frame(self):
         pygame.draw.rect(screen,
                          (255, 255, 255), (
@@ -300,6 +304,8 @@ class TetrisApp:
                          1
                          )
 
+    # Malt schwarzen Hintergrund auf das spezifische Tetrisfeld
+    # Wird jedes Mal aufgerufen, wenn die Steine neu gemalt werden
     def draw_bg(self):
         pygame.draw.rect(screen,
                          (0, 0, 0), (
@@ -310,6 +316,7 @@ class TetrisApp:
                          0
                          )
 
+    # Malt das Spielfeld
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
         for y, row in enumerate(matrix):
@@ -328,6 +335,8 @@ class TetrisApp:
                             config_game['cell_size'],
                             config_game['cell_size']), 0)
 
+    # Bewegt den Stein
+    # -1 Links, 1 Rechts
     def move(self, delta_x):
         new_x = self.stone_x + delta_x
         if new_x < 0:
@@ -339,6 +348,7 @@ class TetrisApp:
                                (new_x, self.stone_y)):
             self.stone_x = new_x
 
+    # Bewegt Stein ein Feld nach unten
     def drop(self):
         self.stone_y += 1
         if check_collision(self.board,
@@ -350,6 +360,7 @@ class TetrisApp:
                 (self.stone_x, self.stone_y))
             self.new_stone()
 
+    # Rotiert Stein im Uhrzeigersinn
     def rotate_stone(self):
         if self.isAlive:
             new_stone = rotate_clockwise(self.stone)
@@ -361,6 +372,7 @@ class TetrisApp:
                 if self.rotation == 4:
                     self.rotation = 0
 
+    # Inputschnittstelle für die AI
     def set_values(self, d, u, x):
         if d > 0.5:
             self.drop()
@@ -371,6 +383,7 @@ class TetrisApp:
         elif x > 0.3:
             self.move(1)
 
+    # Berechnet den Wert der einzelnen Spalten
     def calc_row_values(self):
         v = []
         for x in range(config_game["cols"]):
@@ -389,11 +402,13 @@ class TetrisApp:
             v.append(holes)
         return v
 
+    # Outputschnittstelle für die AI
     def get_values(self):
         values = {"Stone": self.stone_num, "Rot": self.rotation, "x": self.stone_x, "y": self.stone_y}
         board = self.calc_row_values()
         return values, board
 
+    # Berechnet den Tetris score
     def calc_score(self):
         c = 0
         for i, row in enumerate(self.board[:-1]):
@@ -413,6 +428,7 @@ class TetrisApp:
         elif c > 4:
             print("Overscore:", c)
 
+    # Malt das Tetrisfeld neu
     def update(self):
         self.draw_bg()
         self.draw_matrix(self.board, (0, 0))
@@ -424,6 +440,7 @@ class TetrisApp:
         self.draw_frame()
 
 
+# Manueller Modus
 def tetris_test():
     clock = pygame.time.Clock()
     pygame.key.set_repeat(250, 25)
@@ -463,13 +480,15 @@ def tetris_test():
             break
 
 
+# Funktion, welche die Generationen abspielt
 def eval_genomes(genomes, config):
-    tetri = []
-    ge = []
-    nets = []
-    clock = pygame.time.Clock()
-    screen.fill((0, 0, 0))
+    tetri = []  # Alle Tetrisspiele, die parallel laufen
+    ge = []  # Speicherort für die Genomes
+    nets = []  # Speicherort für die Netze
+    clock = pygame.time.Clock()  # Clock für die FPS
+    screen.fill((0, 0, 0))  # Schwärzt Bildschirm zu Beginn
 
+    # Füllt die Listen mit den Spielen und Genomen
     for i, (genome_id, genome) in enumerate(genomes):
         pos = (i % 5, i // 5)
         tetri.append(TetrisApp(pos))
@@ -478,11 +497,13 @@ def eval_genomes(genomes, config):
         nets.append(net)
         genome.fitness = 0
 
-        # render_net(config, genome, pos)
+        render_net(config, genome, pos)
 
+    # Setzt Startzeit
+    # Kann möglicherweise als Fitness-Value verwendet werden
     start_time = time.time()
 
-    while True:
+    while True:     # Hauptschleife
         drop = False
         mv = False
         for event in pygame.event.get():
@@ -494,6 +515,7 @@ def eval_genomes(genomes, config):
             if event.type == pygame.USEREVENT + 2:
                 mv = True
 
+        # Geht die Tetri durch
         for i, tetris in enumerate(tetri):
             if not tetris.isAlive:
                 # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
@@ -503,6 +525,7 @@ def eval_genomes(genomes, config):
                 ge.pop(i)
                 nets.pop(i)
                 continue
+            # Falls Zeit zum Drop abgelaufen ist, wird Teil 1 nach unten bewegt
             if drop:
                 tetris.drop()
             if mv:
