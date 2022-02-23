@@ -88,7 +88,7 @@ def new_board():
     board += [[1 for _ in range(config_game['cols'])]]
     return board
 
-
+"""
 # Berechnet die Koordinaten des Netzwerkes
 class Neurons:
     def __init__(self):
@@ -257,7 +257,7 @@ def render_net(config, genome, pos):
             dot.add_line(a, b, {'color': color, 'penwidth': width})
 
     dot.render(pos)
-
+"""
 
 class TetrisApp:
     def __init__(self, pos):
@@ -497,7 +497,7 @@ def eval_genomes(genomes, config):
         nets.append(net)
         genome.fitness = 0
 
-        render_net(config, genome, pos)
+        # render_net(config, genome, pos)
 
     # Setzt Startzeit
     # Kann möglicherweise als Fitness-Value verwendet werden
