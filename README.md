@@ -13,6 +13,6 @@ Mit diesem Zitat zeigt Birger wieder einmal das er ein direkter Nachfahre Jesus 
 
 Zu guter letzt haben wir Jasper, welcher einfach nur Jasper ist: verückt, charmant, schlau und einfach nur gut aussehend!
 
-Durch die unfassbare Dynamik unseres Team fällt es uns leicht jegliche Probleme ausfindig zu machen und ein für alle mal zu eliminieren wodurch wir uns schon in einigen Dimensionen einen Namen gemacht haben! 
+Durch die unfassbare Dynamik unseres Team fällt es uns leicht jegliche Probleme ausfindig zu machen und ein für alle mal zu eliminieren, wodurch wir uns schon in einigen Dimensionen einen Namen gemacht haben! 
 
 
