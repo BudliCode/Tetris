@@ -563,6 +563,7 @@ def run(config_path):
     # visualize.plot_species(stats, view=True)
 
 
+# Perry ist ein Platypus
 if __name__ == "__main__":
     pygame.init()
     single_width = config_game['cell_size'] * config_game['cols']
