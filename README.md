@@ -13,12 +13,10 @@ Mit diesem Zitat zeigt Birger wieder einmal das er ein direkter Nachfahre Jesus 
 
 Zu guter letzt haben wir Jasper, welcher einfach nur Jasper ist: verückt, charmant, schlau und einfach nur gut aussehend!
 
-Durch die unfassbare Dynamik unseres Team fällt es uns leicht jegliche Probleme ausfindig zu machen und ein für alle mal zu eliminieren, wodurch wir uns schon in einigen Dimensionen einen Namen gemacht haben! 
+Durch die unfassbare Dynamik unseres Teams fällt es uns leicht jegliche Probleme ausfindig zu machen und ein für alle mal zu eliminieren wodurch wir uns schon in einigen Dimensionen einen Namen gemacht haben! 
 
 Wir sind z.B. bekannt in allen 18 Dragonball Multiversen durch unseren epischen Kampf mit Goku wobei wir ihn vernichtend geschlagen haben!
 
-Durch unseren atemberaubenden Kampf kam es zu der Zerstörung von 6 der 18 Multiversen!
+Durch unseren atemberaubenden zerstörerischen Kampf kam es zu der Zerstörung von 6 der 18 Multiversen!
 
 Unteranderem haben wir auch Shaggy aus Scoopy Doo vernichtend geschlagen während er **100%** seiner Power benutzten musste!
-
-![](https://github.com/BudliCode/Tetris/blob/main/GIF/programmer-programming.gif)
