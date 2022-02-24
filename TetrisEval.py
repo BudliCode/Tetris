@@ -259,6 +259,9 @@ def render_net(config, genome, pos):
     dot.render(pos)
 """
 
+
+# Ein toller Kommentar
+# Zwei tolle Kommentare
 class TetrisApp:
     def __init__(self, pos):
         self.pos = pos  # Definiert Position des Spielfeldes
