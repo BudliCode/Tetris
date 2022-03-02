@@ -20,4 +20,6 @@ Wir sind z.B. bekannt in allen 18 Dragonball Multiversen durch unseren epischen 
 Durch unseren atemberaubenden zerstörerischen Kampf kam es zu der Zerstörung von 6 der 18 Multiversen!
 
 Unteranderem haben wir auch Shaggy aus Scoopy Doo vernichtend geschlagen während er **100%** seiner Power benutzten musste!
+
+
 ![](https://github.com/BudliCode/Tetris/blob/main/GIF/programmer-programming.gif)
