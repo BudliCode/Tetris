@@ -56,12 +56,6 @@ def rotate_clockwise(shape):
             for x in range(len(shape[0]) - 1, -1, -1)]
 
 
-def rotate_counterclockwise(shape):
-    return [[shape[y][x]
-             for y in range(len(shape))]
-            for x in range(-1, len(shape[0]) - 1, 1)]
-
-
 def drop_down(board, stone):
     shape = stone[0]
     x = stone[1]
@@ -107,6 +101,7 @@ def new_board():
              for _ in range(config_game['rows'])]
     board += [[1 for _ in range(config_game['cols'])]]
     return board
+
 
 """
 # Berechnet die Koordinaten des Netzwerkes
@@ -392,12 +387,9 @@ class TetrisApp:
             self.isAlive = False
 
     # Rotiert Stein im Uhrzeigersinn
-    def rotate_stone(self, dir):
+    def rotate_stone(self):
         if self.isAlive:
-            if dir == 1:
-                new_stone = rotate_clockwise(self.stone)
-            else:
-                new_stone = rotate_counterclockwise(self.stone)
+            new_stone = rotate_clockwise(self.stone)
             if not check_collision(self.board,
                                    new_stone,
                                    (self.stone_x, self.stone_y)):
@@ -537,7 +529,7 @@ def eval_genomes(genomes, config):
     # Kann möglicherweise als Fitness-Value verwendet werden
     start_time = time.time()
 
-    while True:     # Hauptschleife
+    while True:  # Hauptschleife
         drop = False
         mv = False
         for event in pygame.event.get():
