@@ -299,6 +299,11 @@ class TetrisApp:
                            (self.stone_x, self.stone_y)):
             self.isAlive = False
 
+    def loop_all_pos(self):
+        for all_rot in range(4):
+            for rot in range(all_rot):
+                pass
+
     # Malt Score oben links
     def draw_score(self):
         msg_image = pygame.font.Font(
