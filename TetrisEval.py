@@ -56,6 +56,12 @@ def rotate_clockwise(shape):
             for x in range(len(shape[0]) - 1, -1, -1)]
 
 
+def rotate_counterclockwise(shape):
+    return [[shape[y][x]
+             for y in range(len(shape))]
+            for x in range(-1, len(shape[0]) - 1, 1)]
+
+
 def drop_down(board, stone):
     shape = stone[0]
     x = stone[1]
@@ -386,9 +392,12 @@ class TetrisApp:
             self.isAlive = False
 
     # Rotiert Stein im Uhrzeigersinn
-    def rotate_stone(self):
+    def rotate_stone(self, dir):
         if self.isAlive:
-            new_stone = rotate_clockwise(self.stone)
+            if dir == 1:
+                new_stone = rotate_clockwise(self.stone)
+            else:
+                new_stone = rotate_counterclockwise(self.stone)
             if not check_collision(self.board,
                                    new_stone,
                                    (self.stone_x, self.stone_y)):
@@ -487,7 +496,7 @@ def tetris_test():
                     tetris.drop()
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_UP:
-                    tetri[am].rotate_stone()
+                    tetri[am].rotate_stone(-1)
                 elif event.key == pygame.K_DOWN:
                     tetri[am].drop_down()
                 elif event.key == pygame.K_LEFT:
