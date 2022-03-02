@@ -11,7 +11,7 @@ config_game = {
     'cell_size': 20,
     'cols': 8,
     'rows': 16,
-    'delay': 50,
+    'delay': 750,
     'act': 25,
     'maxfps': 300
 }
@@ -54,6 +54,20 @@ def rotate_clockwise(shape):
     return [[shape[y][x]
              for y in range(len(shape))]
             for x in range(len(shape[0]) - 1, -1, -1)]
+
+
+def drop_down(board, stone):
+    shape = stone[0]
+    x = stone[1]
+    y = stone[2]
+    while True:
+        y += 1
+        if check_collision(board, shape, (x, y)):
+            break
+
+    if y <= stone[2]:
+        return False
+    return join_matrices(board, shape, (x, y))
 
 
 def check_collision(board, shape, offset):
@@ -363,6 +377,14 @@ class TetrisApp:
                 (self.stone_x, self.stone_y))
             self.new_stone()
 
+    # Lässt Stein fallen
+    def drop_down(self):
+        self.board = drop_down(self.board, (self.stone, self.stone_x, self.stone_y))
+        if self.board:
+            self.new_stone()
+        else:
+            self.isAlive = False
+
     # Rotiert Stein im Uhrzeigersinn
     def rotate_stone(self):
         if self.isAlive:
@@ -467,7 +489,7 @@ def tetris_test():
                 if event.key == pygame.K_UP:
                     tetri[am].rotate_stone()
                 elif event.key == pygame.K_DOWN:
-                    tetri[am].drop()
+                    tetri[am].drop_down()
                 elif event.key == pygame.K_LEFT:
                     tetri[am].move(-1)
                 elif event.key == pygame.K_RIGHT:
@@ -583,5 +605,5 @@ if __name__ == "__main__":
     node_names = {}
     node_colors = {}
 
-    # tetris_test()
-    run(config_path)
+    tetris_test()
+    # run(config_path)
