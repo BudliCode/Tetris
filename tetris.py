@@ -87,16 +87,6 @@ def new_board():
 
 class TetrisApp(object):
     def __init__(self):
-        pygame.init()
-        pygame.key.set_repeat(250, 25)
-        self.width = config['cell_size'] * config['cols']
-        self.height = config['cell_size'] * config['rows']
-
-        self.screen = pygame.display.set_mode((self.width, self.height))
-        pygame.event.set_blocked(pygame.MOUSEMOTION)  # We do not need
-        # mouse movement
-        # events, so we
-        # block them.
         self.init_game()
 
     def new_stone(self):
@@ -242,5 +232,13 @@ Press space to continue""")
 
 
 if __name__ == '__main__':
+    pygame.init()
+    pygame.key.set_repeat(250, 25)
+    width = config['cell_size'] * config['cols']
+    height = config['cell_size'] * config['rows']
+
+    screen = pygame.display.set_mode((width, height))
+    pygame.event.set_blocked(pygame.MOUSEMOTION)
+
     App = TetrisApp()
     App.run()
