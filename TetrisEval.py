@@ -5,8 +5,6 @@ import time
 import neat
 import pygame
 
-# from Dinosaur import visualize
-
 config_game = {
     'cell_size': 20,
     'cols': 8,
@@ -105,6 +103,7 @@ def new_board():
 
 """
 # Berechnet die Koordinaten des Netzwerkes
+# BITTE IGNORIEREN
 class Neurons:
     def __init__(self):
         self.inputs = []
