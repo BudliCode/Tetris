@@ -2,11 +2,11 @@ import random
 
 # The configuration
 config_game = {
-    'cell_size': 20,
+    'cell_size': 10,
     'space': 10,
     'cols': 10,
     'rows': 20,
-    'games_per_row': 10,
+    'games_per_row': 5,
 }
 
 colors = [
@@ -92,14 +92,15 @@ def copy_board(old_board):
 
 
 def all_values(board):
-    pass
+    values = []
+    return values
 
 def calc_roof(board):
     roof = []
     for x in range(config_game['cols']):
         for y in range(config_game['rows'] + 1):
             if board[y][x]:
-                l.append((config_game['rows']) - y)
+                roof.append((config_game['rows']) - y)
                 break
     return roof
 
@@ -253,7 +254,7 @@ class TetrisApp(object):
                 if stone_y < 0:
                     continue
                 temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
-                values = CalcValues.return_all_values(temp_board)
+                values = all_values(temp_board) # TODO: Birgers Funktion
                 # all_possibilities.append([net.activate(values), i, j, is_hold])
                 all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)
