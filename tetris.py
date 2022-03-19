@@ -6,7 +6,7 @@ config_game = {
     'space': 10,
     'cols': 10,
     'rows': 20,
-    'games_per_row': 5,
+    'games_per_row': 10,
 }
 
 colors = [
@@ -260,14 +260,21 @@ class TetrisApp(object):
             all_possibilities.extend(self.calc_all_possibilities(self.hold, net, 1))
         else:
             all_possibilities.extend(self.calc_all_possibilities(self.tetris_shapes[0], net, 1))
-        best_move = max(all_possibilities)
+        best_move = self.get_best_move(all_possibilities)
+        # print(best_move)
         if best_move[3]:
             self.switch_hold()
-        print(best_move[1])
         for i in range(best_move[1]):
             self.rotate_stone()
         self.move(best_move[2] - self.stone_x)
         self.drop_down()
+
+    def get_best_move(self, all_possibilities):
+        bm = all_possibilities[0]
+        for p in all_possibilities:
+            if p[0] > bm[0]:
+                bm = p[:]
+        return bm
 
     def calc_all_possibilities(self, stone, net, is_hold):
         all_possibilities = []
@@ -285,5 +292,5 @@ class TetrisApp(object):
                 values = all_values(temp_board, copy_board(self.board))
                 all_possibilities.append([net.activate(values)[0], rotations, location, is_hold])
                 # all_possibilities.append([random.random(), i, j, is_hold])
-            rotate_clockwise(stone)
+            stone = rotate_clockwise(stone)
         return all_possibilities

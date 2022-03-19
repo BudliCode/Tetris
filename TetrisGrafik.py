@@ -14,7 +14,7 @@ class TetrisGrafik(TetrisApp):
             if y == config_game['rows']:
                 continue
             for x, val in enumerate(row):
-                if val:
+                if val < 8:
                     pygame.draw.rect(
                         screen,
                         colors[val],
