@@ -111,24 +111,6 @@ class TetrisApp(object):
                            (self.stone_x, self.stone_y)):
             self.isAlive = False
 
-    def draw_matrix(self, matrix, offset):
-        off_x, off_y = offset
-        for y, row in enumerate(matrix):
-            if y == config_game['rows']:
-                continue
-            for x, val in enumerate(row):
-                if val:
-                    pygame.draw.rect(
-                        screen,
-                        colors[val],
-                        pygame.Rect(
-                            (off_x + x) *
-                            config_game['cell_size'] + self.pos * (field_width + config_game['space']),
-                            (off_y + y) *
-                            config_game['cell_size'],
-                            config_game['cell_size'],
-                            config_game['cell_size']), 0)
-
     def move(self, delta_x):
         if self.isAlive:
             new_x = self.stone_x + delta_x
@@ -187,26 +169,6 @@ class TetrisApp(object):
             self.hold = self.stone
             self.new_stone()
 
-    def draw_bg(self):
-        pygame.draw.rect(screen,
-                         (0, 0, 0), (
-                             self.pos * (field_width + config_game['space']),
-                             0,
-                             field_width,
-                             field_height),
-                         0
-                         )
-
-    def draw_frame(self):
-        pygame.draw.rect(screen,
-                         (255, 255, 255), (
-                             self.pos * (field_width + config_game['space']),
-                             0,
-                             field_width,
-                             field_height / 2),
-                         1
-                         )
-
     def calc_score(self):
         c = 0
         for i, row in enumerate(self.board[:-1]):
@@ -225,36 +187,6 @@ class TetrisApp(object):
             self.score += 1200
         elif c > 4:
             print("Overscore:", c)
-
-    def draw_score(self):
-        msg_image = pygame.font.Font(
-            pygame.font.get_default_font(), 12).render(
-            str(self.score), False, (255, 255, 255), (0, 0, 0))
-
-        msgim_center_x, msgim_center_y = msg_image.get_size()
-
-        screen.blit(msg_image, (
-            (self.pos + 1) * (field_width + config_game['space']) - msgim_center_x - 15,
-            10))
-
-    def draw_next_stones(self):
-        for i in range(4):
-            self.draw_matrix(self.tetris_shapes[i], (4, 18 + 3 * i))
-
-    def draw_hold(self):
-        if self.hold:
-            self.draw_matrix(self.hold, (0, 17))
-
-    def update(self):
-        self.draw_bg()
-        self.draw_matrix(self.board, (0, 0))
-        self.draw_matrix(self.stone,
-                         (self.stone_x,
-                          self.stone_y))
-        self.draw_hold()
-        self.draw_next_stones()
-        self.draw_frame()
-        self.draw_score()
 
 
 def manual():
@@ -289,19 +221,3 @@ def manual():
             tetris.update()
         pygame.display.update()
         dont_burn_my_cpu.tick(config_game['maxfps'])
-
-
-if __name__ == '__main__':
-    pygame.init()
-    pygame.key.set_repeat(250, 25)
-
-    field_width = config_game['cell_size'] * config_game['cols']
-    field_height = config_game['cell_size'] * config_game['rows'] * 2
-    width = field_width * config_game['games'] + config_game['space'] * (config_game['games']-1)
-    height = field_height
-
-    screen = pygame.display.set_mode((width, height))
-    pygame.event.set_blocked(pygame.MOUSEMOTION)
-    pygame.time.set_timer(pygame.USEREVENT + 1, config_game['delay'])
-
-    manual()
