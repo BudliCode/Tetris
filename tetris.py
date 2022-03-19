@@ -6,11 +6,9 @@ import sys
 config_game = {
     'cell_size': 25,
     'space': 10,
-    'cols': 8,
-    'rows': 16,
-    'games': 5,
-    'delay': 750,
-    'maxfps': 30
+    'cols': 10,
+    'rows': 20,
+    'games_per_row': 10,
 }
 
 colors = [
@@ -84,6 +82,29 @@ def new_board():
              for _ in range(config_game['rows'])]
     board += [[1 for _ in range(config_game['cols'])]]
     return board
+
+
+class CalcValues:
+    def calc_roof(self, board):
+        pass
+
+    def return_all_values(self, board):
+        pass
+
+    def calc_score(self, board):
+        pass
+
+    def calc_rows(self, board):
+        pass
+
+    def calc_holes(self, board):
+        pass
+
+    def calc_blocks_over_holes(self, board):
+        pass
+
+    def calc_height(self, board):
+        pass
 
 
 class TetrisApp(object):
@@ -188,36 +209,12 @@ class TetrisApp(object):
         elif c > 4:
             print("Overscore:", c)
 
+    def calc_move(self, net):
 
-def manual():
-    active_field = 5 - 1
-    tetri = [TetrisApp(t) for t in range(5)]
-    dont_burn_my_cpu = pygame.time.Clock()
-    while 1:
-        for event in pygame.event.get():
-            if event.type == pygame.USEREVENT + 1:
-                for tetris in tetri:
-                    tetris.drop()
-            elif event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT:
-                    tetri[active_field].move(-1)
-                elif event.key == pygame.K_RIGHT:
-                    tetri[active_field].move(1)
-                elif event.key == pygame.K_UP:
-                    tetri[active_field].rotate_stone()
-                elif event.key == pygame.K_h:
-                    tetri[active_field].switch_hold()
-                elif event.key == pygame.K_DOWN:
-                    tetri[active_field].drop()
-                elif event.key == pygame.K_SPACE:
-                    tetri[active_field].drop_down()
+    def calc_all_possibilities(self, stone, net):
+        for i in range(4):
+            for j in range(config_game['cols']):
+                if check_collision(self.board, stone, (j, 0)):
+                    continue
 
-        for i, tetris in enumerate(tetri):
-            if not tetris.isAlive:
-                continue
-            tetris.update()
-        pygame.display.update()
-        dont_burn_my_cpu.tick(config_game['maxfps'])
+            rotate_clockwise(stone)

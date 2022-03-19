@@ -1,17 +1,88 @@
+import os
+import sys
 
+import neat
+import pygame
+
+
+def eval_genomes(genomes, config):
+    tetri = []  # Alle Tetrisspiele, die parallel laufen
+    ge = []  # Speicherort für die Genomes
+    nets = []  # Speicherort für die Netze
+    clock = pygame.time.Clock()  # Clock für die FPS
+    screen.fill((0, 0, 0))  # Schwärzt Bildschirm zu Beginn
+
+    # Füllt die Listen mit den Spielen und Genomen
+    for i, (genome_id, genome) in enumerate(genomes):
+        pos = (i % config_game['games_per_row'], i // config_game['games_per_row'])
+        tetri.append(TetrisApp(pos))
+        ge.append(genome)
+        net = neat.nn.FeedForwardNetwork.create(genome, config)
+        nets.append(net)
+        genome.fitness = 0
+
+    while True:  # Hauptschleife
+        drop = False
+        mv = False
+        if Grafisch:
+            for event in pygame.event.get():
+                if event.type == pygame.QUIT:
+                    pygame.quit()
+                    sys.exit()
+
+        # Geht die Tetri durch
+        for i, tetris in enumerate(tetri):
+            if not tetris.isAlive:
+                # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
+                ge[i].fitness = len(list(ge[i].nodes.keys()))
+                # print(i, "died:", ge[i].fitness)
+                tetri.pop(i)
+                ge.pop(i)
+                nets.pop(i)
+                continue
+            # Falls Zeit zum Drop abgelaufen ist, wird Teil 1 nach unten bewegt
+            tetris.calc_move(nets[i])
+            if Grafisch:
+                tetris.update()
+
+        if len(tetri) == 0:
+            break
+
+        clock.tick(30)
+
+
+def run(config_path):
+    global pop
+    config = neat.config.Config(
+        neat.DefaultGenome,
+        neat.DefaultReproduction,
+        neat.DefaultSpeciesSet,
+        neat.DefaultStagnation,
+        config_path
+    )
+
+    pop = neat.Population(config)
+    # pop.add_reporter(neat.StdOutReporter(True))
+    stats = neat.StatisticsReporter()
+    pop.add_reporter(stats)
+    checkpoint = neat.Checkpointer()
+    pop.add_reporter(checkpoint)
+    winner = pop.run(eval_genomes, 100)
+    # visualize.draw_net(config, winner, True, node_names=node_names)
+    # visualize.plot_stats(stats, ylog=False, view=True)
+    # visualize.plot_species(stats, view=True)
 
 
 if __name__ == '__main__':
-    pygame.init()
-    pygame.key.set_repeat(250, 25)
 
-    field_width = config_game['cell_size'] * config_game['cols']
-    field_height = config_game['cell_size'] * config_game['rows'] * 2
-    width = field_width * config_game['games'] + config_game['space'] * (config_game['games']-1)
-    height = field_height
+    local_dir = os.path.dirname(__file__)
+    config_path = os.path.join(local_dir, "config.txt")
 
-    screen = pygame.display.set_mode((width, height))
-    pygame.event.set_blocked(pygame.MOUSEMOTION)
-    pygame.time.set_timer(pygame.USEREVENT + 1, config_game['delay'])
+    Grafisch = True
 
-    manual()
+    if Grafisch:
+        from TetrisGrafik import TetrisGrafik as TetrisApp
+    else:
+        from tetris import TetrisApp, config_game
+
+    run(config_path)

@@ -1,9 +1,11 @@
-from tetris import TetrisApp
+import pygame
+
+from tetris import TetrisApp, config_game, colors
 
 
 class TetrisGrafik(TetrisApp):
-    def __init__(self, ):
-        TetrisApp.__init__()
+    def __init__(self, pos):
+        TetrisApp.__init__(self, pos)
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
@@ -43,8 +45,6 @@ class TetrisGrafik(TetrisApp):
                          1
                          )
 
-
-
     def draw_score(self):
         msg_image = pygame.font.Font(
             pygame.font.get_default_font(), 12).render(
@@ -74,3 +74,13 @@ class TetrisGrafik(TetrisApp):
         self.draw_next_stones()
         self.draw_frame()
         self.draw_score()
+
+
+field_width = config_game['cell_size'] * config_game['cols']
+field_height = config_game['cell_size'] * config_game['rows'] * 2
+
+width = field_width * config_game['games'] + config_game['space'] * (config_game['games'] - 1)
+height = field_height
+pygame.init()
+
+screen = pygame.display.set_mode((width, height))
