@@ -5,7 +5,8 @@ from tetris import TetrisApp, config_game, colors
 
 class TetrisGrafik(TetrisApp):
     def __init__(self, pos):
-        TetrisApp.__init__(self, pos)
+        TetrisApp.__init__(self)
+        self.pos = pos
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
@@ -19,7 +20,7 @@ class TetrisGrafik(TetrisApp):
                         colors[val],
                         pygame.Rect(
                             (off_x + x) *
-                            config_game['cell_size'] + self.pos * (field_width + config_game['space']),
+                            config_game['cell_size'] + self.pos[0] * (field_width + config_game['space']),
                             (off_y + y) *
                             config_game['cell_size'],
                             config_game['cell_size'],
@@ -28,7 +29,7 @@ class TetrisGrafik(TetrisApp):
     def draw_bg(self):
         pygame.draw.rect(screen,
                          (0, 0, 0), (
-                             self.pos * (field_width + config_game['space']),
+                             self.pos[0] * (field_width + config_game['space']),
                              0,
                              field_width,
                              field_height),
@@ -38,7 +39,7 @@ class TetrisGrafik(TetrisApp):
     def draw_frame(self):
         pygame.draw.rect(screen,
                          (255, 255, 255), (
-                             self.pos * (field_width + config_game['space']),
+                             self.pos[0] * (field_width + config_game['space']),
                              0,
                              field_width,
                              field_height / 2),
@@ -53,7 +54,7 @@ class TetrisGrafik(TetrisApp):
         msgim_center_x, msgim_center_y = msg_image.get_size()
 
         screen.blit(msg_image, (
-            (self.pos + 1) * (field_width + config_game['space']) - msgim_center_x - 15,
+            (self.pos[0] + 1) * (field_width + config_game['space']) - msgim_center_x - 15,
             10))
 
     def draw_next_stones(self):
@@ -79,7 +80,7 @@ class TetrisGrafik(TetrisApp):
 field_width = config_game['cell_size'] * config_game['cols']
 field_height = config_game['cell_size'] * config_game['rows'] * 2
 
-width = field_width * config_game['games'] + config_game['space'] * (config_game['games'] - 1)
+width = field_width * config_game['games_per_row'] + config_game['space'] * (config_game['games_per_row'] - 1)
 height = field_height
 pygame.init()
 

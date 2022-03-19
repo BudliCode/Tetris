@@ -10,21 +10,24 @@ def eval_genomes(genomes, config):
     ge = []  # Speicherort für die Genomes
     nets = []  # Speicherort für die Netze
     clock = pygame.time.Clock()  # Clock für die FPS
-    screen.fill((0, 0, 0))  # Schwärzt Bildschirm zu Beginn
+    if Grafisch:
+        screen.fill((0, 0, 0))  # Schwärzt Bildschirm zu Beginn
 
     # Füllt die Listen mit den Spielen und Genomen
     for i, (genome_id, genome) in enumerate(genomes):
-        pos = (i % config_game['games_per_row'], i // config_game['games_per_row'])
-        tetri.append(TetrisApp(pos))
+        if Grafisch:
+            pos = (i % config_game['games_per_row'], i // config_game['games_per_row'])
+            tetri.append(TetrisApp(pos))
+        else:
+            tetri.append(TetrisApp())
         ge.append(genome)
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(net)
         genome.fitness = 0
 
-    while True:  # Hauptschleife
-        drop = False
-        mv = False
+    while True:
         if Grafisch:
+            pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
@@ -80,9 +83,10 @@ if __name__ == '__main__':
 
     Grafisch = True
 
+    from tetris import config_game
     if Grafisch:
-        from TetrisGrafik import TetrisGrafik as TetrisApp
+        from TetrisGrafik import TetrisGrafik as TetrisApp, screen
     else:
-        from tetris import TetrisApp, config_game
+        from tetris import TetrisApp
 
     run(config_path)

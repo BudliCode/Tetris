@@ -167,6 +167,7 @@ class TetrisApp(object):
                         (self.stone_x, self.stone_y))
                     self.new_stone()
                     self.calc_score()
+                    print(self.board)
                     return
 
     def rotate_stone(self):

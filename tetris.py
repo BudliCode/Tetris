@@ -1,10 +1,8 @@
 import random
-import pygame
-import sys
 
 # The configuration
 config_game = {
-    'cell_size': 25,
+    'cell_size': 20,
     'space': 10,
     'cols': 10,
     'rows': 20,
@@ -84,12 +82,23 @@ def new_board():
     return board
 
 
+def copy_board(old_board):
+    new_board = []
+    for r in old_board:
+        columns = []
+        for c in r:
+            columns.append(c)
+        new_board.append(columns)
+    return new_board
+
+
 class CalcValues:
     def calc_roof(self, board):
         pass
 
-    def return_all_values(self, board):
-        pass
+    @staticmethod
+    def return_all_values(board):
+        return
 
     def calc_score(self, board):
         pass
@@ -108,8 +117,7 @@ class CalcValues:
 
 
 class TetrisApp(object):
-    def __init__(self, pos):
-        self.pos = pos
+    def __init__(self):
         self.isAlive = True
         self.score = 0
         self.board = new_board()
@@ -210,11 +218,34 @@ class TetrisApp(object):
             print("Overscore:", c)
 
     def calc_move(self, net):
+        all_possibilities = []
+        all_possibilities.extend(self.calc_all_possibilities(self.stone, net, 0))
+        if self.hold:
+            all_possibilities.extend(self.calc_all_possibilities(self.hold, net, 1))
+        else:
+            all_possibilities.extend(self.calc_all_possibilities(self.tetris_shapes[0], net, 1))
+        best_move = max(all_possibilities)[1:]
+        if best_move[2]:
+            self.switch_hold()
+        for i in range(best_move[0]):
+            self.rotate_stone()
+        self.move(best_move[1] - self.stone_x)
 
-    def calc_all_possibilities(self, stone, net):
+    def calc_all_possibilities(self, stone, net, is_hold):
+        all_possibilities = []
         for i in range(4):
             for j in range(config_game['cols']):
-                if check_collision(self.board, stone, (j, 0)):
+                stone_y = 0
+                while True:
+                    if check_collision(self.board, stone, (j, stone_y)):
+                        stone_y -= 1
+                        break
+                    stone_y += 1
+                if stone_y < 0:
                     continue
-
+                temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
+                values = CalcValues.return_all_values(temp_board)
+                # all_possibilities.append([net.activate(values), i, j, is_hold])
+                all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)
+        return all_possibilities
