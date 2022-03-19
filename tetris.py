@@ -240,6 +240,7 @@ class TetrisApp(object):
         for i in range(best_move[0]):
             self.rotate_stone()
         self.move(best_move[1] - self.stone_x)
+        self.drop_down()
 
     def calc_all_possibilities(self, stone, net, is_hold):
         all_possibilities = []
@@ -254,7 +255,7 @@ class TetrisApp(object):
                 if stone_y < 0:
                     continue
                 temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
-                values = all_values(temp_board) # TODO: Birgers Funktion
+                values = all_values(temp_board)
                 # all_possibilities.append([net.activate(values), i, j, is_hold])
                 all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)

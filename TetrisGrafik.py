@@ -21,8 +21,8 @@ class TetrisGrafik(TetrisApp):
                         pygame.Rect(
                             (off_x + x) *
                             config_game['cell_size'] + self.pos[0] * (field_width + config_game['space']),
-                            (off_y + y) *
-                            config_game['cell_size'] + self.pos[1] * (config_game['rows'] + 14),
+                            (off_y + y + self.pos[1] * (config_game['rows'] + 14)) *
+                            config_game['cell_size'],
                             config_game['cell_size'],
                             config_game['cell_size']), 0)
 
@@ -42,7 +42,7 @@ class TetrisGrafik(TetrisApp):
                              self.pos[0] * (field_width + config_game['space']),
                              self.pos[1] * field_height,
                              field_width,
-                             field_height / 2),
+                             config_game['rows'] * config_game['cell_size']),
                          1
                          )
 
@@ -59,7 +59,7 @@ class TetrisGrafik(TetrisApp):
 
     def draw_next_stones(self):
         for i in range(4):
-            self.draw_matrix(self.tetris_shapes[i], (4, config_game['rows'] + 2 + 3 * i))
+            self.draw_matrix(self.tetris_shapes[i], (4, config_game['rows'] + 1 + 3 * i))
 
     def draw_hold(self):
         if self.hold:
