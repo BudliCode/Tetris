@@ -94,10 +94,14 @@ def copy_board(old_board):
 def all_values(board, boardOld):
     values = []
     roof = calc_roof(board)
+    roofOld = calc_roof(boardOld)
 
     values.append(calc_rows(board))
-    values.append(calc_holes(board, roof))
+    values.append(calc_holes_diff(board, boardOld, roof))
+    values.append(calc_maxHeight(roof,))
+    values.append(calc_height(roof, roofOld))
     return values
+
 
 def calc_roof(board):
     roof = []
@@ -108,27 +112,42 @@ def calc_roof(board):
                 break
     return roof
 
+
 def calc_rows(board):
     rows = 0
-    for i, row in enumerate(self.board[:-1]):
+    for i, row in enumerate(board[:-1]):
         if 0 not in row:
             rows += 1
     return rows
+
 
 def calc_holes(board, roof):
     holes = 0
     for x in range(config_game['cols']):
         for y in range(roof[x]):
-            if board[y][x]:
-                roof.append((config_game['rows']) - y)
-                break
+            if not board[config_game['rows'] - y][x]:
+                holes += 1
     return holes
 
-def calc_blocks_over_holes(board):
-    pass
 
-def calc_height(board):
-    pass
+def calc_holes_diff(board, boardOld, roof):
+    diff = calc_holes(board, roof) - calc_holes(boardOld, roof)
+    return diff
+
+def calc_maxHeight(roof):
+    maxHeight = max(roof)
+    return maxHeight
+
+def calc_height(roof, roofOld):
+    newBlock = []
+    heightdiff = [roof[x] - roofOld[x] for x in range(config_game['cols'])]
+    for x in range(len(heightdiff)):
+        if heightdiff[x]:
+            newBlock.append(roof[x])
+    height = max(newBlock)
+    return height
+
+
 
 
 class TetrisApp(object):
