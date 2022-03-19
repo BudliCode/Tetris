@@ -93,10 +93,11 @@ def copy_board(old_board):
 
 def all_values(board, boardOld):
     values = []
+    cleared_rows, board = calc_rows(board)
     roof = calc_roof(board)
     roofOld = calc_roof(boardOld)
 
-    values.append(calc_rows(board))
+    values.append(cleared_rows)
     values.append(calc_holes_diff(board, boardOld, roof))
     values.append(calc_maxHeight(roof, ))
     values.append(calc_height(roof, roofOld))
@@ -117,8 +118,9 @@ def calc_rows(board):
     rows = 0
     for i, row in enumerate(board[:-1]):
         if 0 not in row:
+            board = remove_row(board, i)
             rows += 1
-    return rows
+    return rows, board
 
 
 def calc_holes(board, roof):
@@ -141,7 +143,7 @@ def calc_maxHeight(roof):
 
 
 def calc_height(roof, roofOld):
-    newBlock = []
+    newBlock = [0]
     heightdiff = [roof[x] - roofOld[x] for x in range(config_game['cols'])]
     for x in range(len(heightdiff)):
         if heightdiff[x]:
@@ -258,12 +260,12 @@ class TetrisApp(object):
             all_possibilities.extend(self.calc_all_possibilities(self.hold, net, 1))
         else:
             all_possibilities.extend(self.calc_all_possibilities(self.tetris_shapes[0], net, 1))
-        best_move = max(all_possibilities)[1:]
-        if best_move[2]:
+        best_move = max(all_possibilities)
+        if best_move[3]:
             self.switch_hold()
-        for i in range(best_move[0]):
+        for i in range(best_move[1]):
             self.rotate_stone()
-        self.move(best_move[1] - self.stone_x)
+        self.move(best_move[2] - self.stone_x)
         self.drop_down()
 
     def calc_all_possibilities(self, stone, net, is_hold):
@@ -279,7 +281,7 @@ class TetrisApp(object):
                 if stone_y < 0:
                     continue
                 temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
-                values = all_values(temp_board)
+                values = all_values(temp_board, copy_board(self.board))
                 all_possibilities.append([net.activate(values), i, j, is_hold])
                 # all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)
