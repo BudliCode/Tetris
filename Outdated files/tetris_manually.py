@@ -6,8 +6,8 @@ import sys
 config_game = {
     'cell_size': 25,
     'space': 10,
-    'cols': 8,
-    'rows': 16,
+    'cols': 10,
+    'rows': 20,
     'games': 5,
     'delay': 750,
     'maxfps': 30

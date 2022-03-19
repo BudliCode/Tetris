@@ -59,7 +59,6 @@ def check_collision(board, shape, offset):
                     return True
             except IndexError:
                 return True
-    return False
 
 
 def remove_row(board, row):
@@ -92,28 +91,38 @@ def copy_board(old_board):
     return new_board
 
 
-class CalcValues:
-    def calc_roof(self, board):
-        pass
+def all_values(board):
+    pass
 
-    @staticmethod
-    def return_all_values(board):
-        return
+def calc_roof(board):
+    roof = []
+    for x in range(config_game['cols']):
+        for y in range(config_game['rows'] + 1):
+            if board[y][x]:
+                l.append((config_game['rows']) - y)
+                break
+    return roof
 
-    def calc_score(self, board):
-        pass
+def calc_score(self):
+    c = 0
+    for i, row in enumerate(self.board[:-1]):
+        if 0 not in row:
+            c += 1
 
-    def calc_rows(self, board):
-        pass
+def calc_score(board):
+    pass
 
-    def calc_holes(self, board):
-        pass
+def calc_rows(board):
+    pass
 
-    def calc_blocks_over_holes(self, board):
-        pass
+def calc_holes(board):
+    pass
 
-    def calc_height(self, board):
-        pass
+def calc_blocks_over_holes(board):
+    pass
+
+def calc_height(board):
+    pass
 
 
 class TetrisApp(object):
