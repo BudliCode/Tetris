@@ -65,7 +65,7 @@ def run(config_path):
     )
 
     pop = neat.Population(config)
-    # pop.add_reporter(neat.StdOutReporter(True))
+    pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
     checkpoint = neat.Checkpointer()

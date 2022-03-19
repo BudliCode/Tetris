@@ -98,7 +98,7 @@ def all_values(board, boardOld):
 
     values.append(calc_rows(board))
     values.append(calc_holes_diff(board, boardOld, roof))
-    values.append(calc_maxHeight(roof,))
+    values.append(calc_maxHeight(roof, ))
     values.append(calc_height(roof, roofOld))
     return values
 
@@ -134,9 +134,11 @@ def calc_holes_diff(board, boardOld, roof):
     diff = calc_holes(board, roof) - calc_holes(boardOld, roof)
     return diff
 
+
 def calc_maxHeight(roof):
     maxHeight = max(roof)
     return maxHeight
+
 
 def calc_height(roof, roofOld):
     newBlock = []
@@ -146,8 +148,6 @@ def calc_height(roof, roofOld):
             newBlock.append(roof[x])
     height = max(newBlock)
     return height
-
-
 
 
 class TetrisApp(object):
@@ -280,7 +280,7 @@ class TetrisApp(object):
                     continue
                 temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
                 values = all_values(temp_board)
-                # all_possibilities.append([net.activate(values), i, j, is_hold])
-                all_possibilities.append([random.random(), i, j, is_hold])
+                all_possibilities.append([net.activate(values), i, j, is_hold])
+                # all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)
         return all_possibilities
