@@ -263,6 +263,7 @@ class TetrisApp(object):
         best_move = max(all_possibilities)
         if best_move[3]:
             self.switch_hold()
+        print(best_move[1])
         for i in range(best_move[1]):
             self.rotate_stone()
         self.move(best_move[2] - self.stone_x)
@@ -270,19 +271,19 @@ class TetrisApp(object):
 
     def calc_all_possibilities(self, stone, net, is_hold):
         all_possibilities = []
-        for i in range(4):
-            for j in range(config_game['cols']):
+        for rotations in range(4):
+            for location in range(config_game['cols']):
                 stone_y = 0
                 while True:
-                    if check_collision(self.board, stone, (j, stone_y)):
+                    if check_collision(self.board, stone, (location, stone_y)):
                         stone_y -= 1
                         break
                     stone_y += 1
                 if stone_y < 0:
                     continue
-                temp_board = join_matrices(copy_board(self.board), stone, (j, stone_y))
+                temp_board = join_matrices(copy_board(self.board), stone, (location, stone_y))
                 values = all_values(temp_board, copy_board(self.board))
-                all_possibilities.append([net.activate(values), i, j, is_hold])
+                all_possibilities.append([net.activate(values)[0], rotations, location, is_hold])
                 # all_possibilities.append([random.random(), i, j, is_hold])
             rotate_clockwise(stone)
         return all_possibilities
