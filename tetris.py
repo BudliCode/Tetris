@@ -91,8 +91,12 @@ def copy_board(old_board):
     return new_board
 
 
-def all_values(board):
+def all_values(board, boardOld):
     values = []
+    roof = calc_roof(board)
+
+    values.append(calc_rows(board))
+    values.append(calc_holes(board, roof))
     return values
 
 def calc_roof(board):
@@ -104,20 +108,21 @@ def calc_roof(board):
                 break
     return roof
 
-def calc_score(self):
-    c = 0
+def calc_rows(board):
+    rows = 0
     for i, row in enumerate(self.board[:-1]):
         if 0 not in row:
-            c += 1
+            rows += 1
+    return rows
 
-def calc_score(board):
-    pass
-
-def calc_rows(board):
-    pass
-
-def calc_holes(board):
-    pass
+def calc_holes(board, roof):
+    holes = 0
+    for x in range(config_game['cols']):
+        for y in range(roof[x]):
+            if board[y][x]:
+                roof.append((config_game['rows']) - y)
+                break
+    return holes
 
 def calc_blocks_over_holes(board):
     pass
