@@ -240,11 +240,11 @@ class TetrisApp(object):
 
     def draw_next_stones(self):
         for i in range(4):
-            self.draw_matrix(self.tetris_shapes[i], (4, 18 + 3 * i))
+            self.draw_matrix(self.tetris_shapes[i], (4, config_game['rows'] + 2 + 3 * i))
 
     def draw_hold(self):
         if self.hold:
-            self.draw_matrix(self.hold, (0, 17))
+            self.draw_matrix(self.hold, (0, config_game['rows'] + 1))
 
     def update(self):
         self.draw_bg()

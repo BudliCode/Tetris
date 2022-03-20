@@ -17,6 +17,7 @@ class TelegramReporter(BaseReporter):
         self.get_token()
         self.bot = telepot.Bot(self.token)
         self.current_gen = 0
+        self.best_fitness_gen = 0
         self.best_fitness = 0
 
     def get_token(self):
@@ -32,11 +33,11 @@ class TelegramReporter(BaseReporter):
         self.current_gen = generation
 
     def end_generation(self, config, population, species_set):
-        best_fitness = self.get_best_generation(species_set.species)
-        self.save_best_fitness(best_fitness)
+        best_fitness_of_gen = self.get_best_generation(species_set.species)
+        self.save_best_gen_fitness(best_fitness_of_gen)
         if self.graphic:
             self.create_image()
-        self.send_message(best_fitness)
+        self.send_message(best_fitness_of_gen)
 
     def get_best_generation(self, species):
         all_fitness = []
@@ -44,9 +45,14 @@ class TelegramReporter(BaseReporter):
             all_fitness.append(s.fitness)
         return max(all_fitness)
 
-    def save_best_fitness(self, best_fitness):
+    def save_best_gen_fitness(self, best_fitness):
         with open(self.file, "a") as f:
             f.write(str(best_fitness) + "\n")
+
+    def det_best_fitness(self, best_gen_fitness):
+        if best_gen_fitness > self.best_fitness:
+            self.best_fitness = best_gen_fitness
+            self.best_fitness_gen = self.current_gen
 
     def create_image(self):
         pygame.init()
@@ -77,13 +83,17 @@ class TelegramReporter(BaseReporter):
         pygame.image.save(screen, "screenshot.jpg")
         pygame.quit()
 
-    def send_message(self, message):
+    def send_message(self, record):
+        message = f"Current Generation:\t{self.current_gen}\n" \
+                  f"Current Fitness:\t{record}\n" \
+                  f"Best Generation:\t{self.best_fitness_gen}\n" \
+                  f"Best Fitness:\t{self.best_fitness}"
         try:
             if self.graphic:
                 self.bot.sendPhoto(self.chat_id, photo=open("screenshot.jpg", "rb"), caption=message)
             else:
                 self.bot.sendMessage(self.chat_id, message)
-            self.loop_updates()
+            # self.loop_updates()
         except ConnectionError:
             pass
 

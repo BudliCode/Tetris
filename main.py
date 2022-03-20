@@ -1,3 +1,4 @@
+import datetime
 import os
 import sys
 from Reporter.TelegramReporter import TelegramReporter
@@ -25,8 +26,11 @@ def eval_genomes(genomes, config):
         nets.append(net)
         genome.fitness = 0
 
+    start_time = datetime.datetime.now()
+
     while True:
         if Grafisch:
+            # pygame.time.wait(500)
             pygame.display.update()
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -35,6 +39,8 @@ def eval_genomes(genomes, config):
 
         # Geht die Tetri durch
         for i, tetris in enumerate(tetri):
+            if datetime.datetime.now() - start_time > datetime.timedelta(minutes=10):
+                tetris.isAlive = False
             if not tetris.isAlive:
                 # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
                 ge[i].fitness = tetris.score
@@ -51,8 +57,6 @@ def eval_genomes(genomes, config):
         if len(tetri) == 0:
             break
 
-        clock.tick(30)
-
 
 def run(config_path):
     global pop
@@ -65,11 +69,12 @@ def run(config_path):
     )
 
     pop = neat.Population(config)
+    pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-2")
     pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
-    # tele = TelegramReporter()
-    # pop.add_reporter(tele)
+    tele = TelegramReporter(False)
+    pop.add_reporter(tele)
     checkpoint = neat.Checkpointer()
     pop.add_reporter(checkpoint)
     winner = pop.run(eval_genomes, 100)
