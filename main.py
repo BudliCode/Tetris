@@ -1,6 +1,6 @@
 import os
 import sys
-
+from Reporter.TelegramReporter import TelegramReporter
 import neat
 import pygame
 
@@ -68,6 +68,8 @@ def run(config_path):
     pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
+    # tele = TelegramReporter()
+    # pop.add_reporter(tele)
     checkpoint = neat.Checkpointer()
     pop.add_reporter(checkpoint)
     winner = pop.run(eval_genomes, 100)
