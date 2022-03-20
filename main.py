@@ -1,6 +1,9 @@
 import datetime
 import os
 import sys
+
+from neat import Checkpointer
+
 from Reporter.TelegramReporter import TelegramReporter
 import neat
 import pygame
@@ -18,15 +21,13 @@ def eval_genomes(genomes, config):
     for i, (genome_id, genome) in enumerate(genomes):
         if Grafisch:
             pos = (i % config_game['games_per_row'], i // config_game['games_per_row'])
-            tetri.append(TetrisApp(pos))
+            tetri.append(TetrisApp(pos, config_game['max_moves']))
         else:
-            tetri.append(TetrisApp())
+            tetri.append(TetrisApp(config_game['max_moves']))
         ge.append(genome)
         net = neat.nn.FeedForwardNetwork.create(genome, config)
         nets.append(net)
         genome.fitness = 0
-
-    start_time = datetime.datetime.now()
 
     while True:
         if Grafisch:
@@ -39,7 +40,7 @@ def eval_genomes(genomes, config):
 
         # Geht die Tetri durch
         for i, tetris in enumerate(tetri):
-            if datetime.datetime.now() - start_time > datetime.timedelta(minutes=10):
+            if tetris.moves_left == 0:
                 tetris.isAlive = False
             if not tetris.isAlive:
                 # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
@@ -69,14 +70,14 @@ def run(config_path):
     )
 
     pop = neat.Population(config)
-    pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-2")
+    # pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-2")
     pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
-    tele = TelegramReporter(False)
-    pop.add_reporter(tele)
-    checkpoint = neat.Checkpointer()
+    checkpoint = Checkpointer(generation_interval=1)
     pop.add_reporter(checkpoint)
+    # tele = TelegramReporter(False)
+    # pop.add_reporter(tele)
     winner = pop.run(eval_genomes, 100)
     # visualize.draw_net(config, winner, True, node_names=node_names)
     # visualize.plot_stats(stats, ylog=False, view=True)

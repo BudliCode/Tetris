@@ -1,3 +1,4 @@
+import os
 import time
 
 import telepot
@@ -15,7 +16,6 @@ class TelegramReporter(BaseReporter):
         self.token = ""
         self.chat_id = ""
         self.get_token()
-        self.bot = telepot.Bot(self.token)
         self.current_gen = 0
         self.best_fitness_gen = 0
         self.best_fitness = 0
@@ -33,15 +33,21 @@ class TelegramReporter(BaseReporter):
         self.current_gen = generation
 
     def end_generation(self, config, population, species_set):
-        best_fitness_of_gen = self.get_best_generation(species_set.species)
+        best_fitness_of_gen = self.get_best_generation(list(species_set.species.values()))
+        self.det_best_fitness(best_fitness_of_gen)
         self.save_best_gen_fitness(best_fitness_of_gen)
         if self.graphic:
             self.create_image()
         self.send_message(best_fitness_of_gen)
+        try:
+            os.remove("screenshot.jpg")
+        except FileNotFoundError:
+            pass
 
     def get_best_generation(self, species):
         all_fitness = []
-        for s in species.values():
+        best_value = 0
+        for s in species:
             all_fitness.append(s.fitness)
         return max(all_fitness)
 
@@ -84,15 +90,16 @@ class TelegramReporter(BaseReporter):
         pygame.quit()
 
     def send_message(self, record):
+        bot = telepot.Bot(self.token)
         message = f"Current Generation:\t{self.current_gen}\n" \
                   f"Current Fitness:\t{record}\n" \
                   f"Best Generation:\t{self.best_fitness_gen}\n" \
                   f"Best Fitness:\t{self.best_fitness}"
         try:
             if self.graphic:
-                self.bot.sendPhoto(self.chat_id, photo=open("screenshot.jpg", "rb"), caption=message)
+                bot.sendPhoto(self.chat_id, photo=open("screenshot.jpg", "rb"), caption=message)
             else:
-                self.bot.sendMessage(self.chat_id, message)
+                bot.sendMessage(self.chat_id, message)
             # self.loop_updates()
         except ConnectionError:
             pass

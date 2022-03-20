@@ -4,8 +4,8 @@ from tetris import TetrisApp, config_game, colors
 
 
 class TetrisGrafik(TetrisApp):
-    def __init__(self, pos):
-        TetrisApp.__init__(self)
+    def __init__(self, pos, max_moves):
+        TetrisApp.__init__(self, max_moves)
         self.pos = pos
 
     def draw_matrix(self, matrix, offset):

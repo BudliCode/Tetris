@@ -7,6 +7,7 @@ config_game = {
     'cols': 10,
     'rows': 20,
     'games_per_row': 10,
+    'max_moves': 4000
 }
 
 colors = [
@@ -101,6 +102,7 @@ def all_values(board, boardOld):
     values.append(calc_max_height(board))
     values.append(calc_height(board, boardOld))
     values.append(calc_height_border(board))
+    values.append(calc_general_height_diff(board))
     return values
 
 
@@ -200,8 +202,17 @@ def calc_height_border(board):
     return value
 
 
+def calc_general_height_diff(board):
+    value = 0
+    roof = calc_roof(board)
+    for i in range(len(roof)-1):
+        value += abs(roof[i] - roof[i+1])
+    return value
+
+
 class TetrisApp(object):
-    def __init__(self):
+    def __init__(self, max_moves):
+        self.moves_left = max_moves
         self.isAlive = True
         self.score = 0
         self.board = new_board()
@@ -316,6 +327,7 @@ class TetrisApp(object):
             self.rotate_stone()
         self.move(best_move[2] - self.stone_x)
         self.drop_down()
+        self.moves_left -= 1
 
     def get_best_move(self, all_possibilities):
         bm = all_possibilities[0]
