@@ -13,7 +13,6 @@ def eval_genomes(genomes, config):
     tetri = []  # Alle Tetrisspiele, die parallel laufen
     ge = []  # Speicherort für die Genomes
     nets = []  # Speicherort für die Netze
-    clock = pygame.time.Clock()  # Clock für die FPS
     if Grafisch:
         screen.fill((0, 0, 0))  # Schwärzt Bildschirm zu Beginn
 
@@ -70,14 +69,14 @@ def run(config_path):
     )
 
     pop = neat.Population(config)
-    # pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-2")
+    # pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-13")
     pop.add_reporter(neat.StdOutReporter(True))
     stats = neat.StatisticsReporter()
     pop.add_reporter(stats)
-    checkpoint = Checkpointer(generation_interval=1)
+    checkpoint = Checkpointer(generation_interval=10)
     pop.add_reporter(checkpoint)
-    # tele = TelegramReporter(False)
-    # pop.add_reporter(tele)
+    tele = TelegramReporter(True)
+    pop.add_reporter(tele)
     winner = pop.run(eval_genomes, 100)
     # visualize.draw_net(config, winner, True, node_names=node_names)
     # visualize.plot_stats(stats, ylog=False, view=True)
@@ -89,7 +88,7 @@ if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, "config.txt")
 
-    Grafisch = True
+    Grafisch = False
 
     from tetris import config_game
     if Grafisch:
