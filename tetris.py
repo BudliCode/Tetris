@@ -7,7 +7,7 @@ config_game = {
     'cols': 10,
     'rows': 20,
     'games_per_row': 5,
-    'max_moves': 40000
+    'max_moves': 1000
 }
 
 colors = [
@@ -311,6 +311,7 @@ class TetrisApp(object):
             self.score += 1200
         elif c > 4:
             print("Overscore:", c)
+        self.moves_left -= c
 
     def calc_move(self, net):
         all_possibilities = []
@@ -327,7 +328,6 @@ class TetrisApp(object):
             self.rotate_stone()
         self.move(best_move[2] - self.stone_x)
         self.drop_down()
-        self.moves_left -= 1
 
     def get_best_move(self, all_possibilities):
         bm = all_possibilities[0]

@@ -39,7 +39,7 @@ def eval_genomes(genomes, config):
 
         # Geht die Tetri durch
         for i, tetris in enumerate(tetri):
-            if tetris.moves_left == 0:
+            if tetris.moves_left <= 0:
                 tetris.isAlive = False
             if not tetris.isAlive:
                 # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
@@ -77,7 +77,7 @@ def run(config_path):
     pop.add_reporter(checkpoint)
     tele = TelegramReporter(True)
     pop.add_reporter(tele)
-    winner = pop.run(eval_genomes, 100)
+    winner = pop.run(eval_genomes, 10000)
     # visualize.draw_net(config, winner, True, node_names=node_names)
     # visualize.plot_stats(stats, ylog=False, view=True)
     # visualize.plot_species(stats, view=True)
