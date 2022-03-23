@@ -1,5 +1,5 @@
 import os
-
+from PIL import Image, ImageDraw
 import pygame
 import telepot
 from neat.reporting import BaseReporter
@@ -45,6 +45,37 @@ def get_average_fitness(file):
             total_value += int(line.strip())
             all_values = i + 1
     return total_value / all_values
+
+
+def create_image_pillow(file):
+    mode = 'RGB'
+    width = 1000
+    height = 800
+    black = (0, 0, 0)
+    white = (255, 255, 255)
+    l_width = 1
+    img = Image.new(mode, (width, height), black)
+    draw = ImageDraw.Draw(img)
+    coords = []
+
+    with open(file, "r") as f:
+        lines = f.readlines()
+        for i, line in enumerate(lines):
+            coords.append([i, int(line.strip())])
+
+    heights = []
+    for c in coords:
+        heights.append(c[1])
+    highest_value = max(heights)
+
+    for i, c in enumerate(coords):
+        if i < len(coords) - 1:
+            x1 = c[0] * width / len(coords)
+            y1 = height - c[1] * height / (highest_value + 1000)
+            x2 = coords[i + 1][0] * width / len(coords)
+            y2 = height - coords[i + 1][1] * height / (highest_value + 1000)
+            draw.line((x1, y1, x2, y2), fill=white, width=l_width)
+    img.save("screenshot.jpg")
 
 
 def create_image(file):
@@ -130,7 +161,7 @@ class TelegramReporter(BaseReporter):
             average_fitness
         ))
         if self.graphic:
-            create_image(self.score_file)
+            create_image_pillow(self.score_file)
             self.message_handler.send_message(message)
             os.remove("screenshot.jpg")
         else:
