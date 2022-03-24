@@ -311,7 +311,7 @@ class TetrisApp(object):
             self.score += 1200
         elif c > 4:
             print("Overscore:", c)
-        self.moves_left -= c
+        self.moves_left -= 1
 
     def calc_move(self, net):
         all_possibilities = []
