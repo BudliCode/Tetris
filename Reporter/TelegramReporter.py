@@ -92,7 +92,7 @@ def create_image(file):
             coords.append([i, int(line.strip())])
 
     heights = []
-    for c in coords:
+    for c in coords[-min(20, len(coords)):]:
         heights.append(c[1])
     highest_value = max(heights)
 
