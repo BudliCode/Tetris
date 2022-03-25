@@ -7,7 +7,7 @@ config_game = {
     'cols': 10,
     'rows': 20,
     'games_per_row': 5,
-    'max_moves': 1000
+    'max_moves': 8000
 }
 
 colors = [
