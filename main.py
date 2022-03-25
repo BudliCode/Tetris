@@ -70,9 +70,9 @@ def run(config_path):
 
     pop = neat.Population(config)
     # pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-13")
-    pop.add_reporter(neat.StdOutReporter(True))
-    stats = neat.StatisticsReporter()
-    pop.add_reporter(stats)
+    # pop.add_reporter(neat.StdOutReporter(True))
+    # stats = neat.StatisticsReporter()
+    # pop.add_reporter(stats)
     checkpoint = Checkpointer(generation_interval=10)
     pop.add_reporter(checkpoint)
     tele = TelegramReporter(True)
