@@ -26,7 +26,7 @@ def get_best_fitness_of_gen(species_set):
 
 def add_score(file, score):
     with open(file, "a") as f:
-        f.write(str(score) + "\n")
+        f.write(str(int(score)) + "\n")
 
 
 def det_best_fitness(former_gen_values, current_gen_values):
@@ -59,20 +59,18 @@ def create_image(file):
 
     with open(file, "r") as f:
         lines = f.readlines()
-        for i, line in enumerate(lines):
-            coords.append([i, int(line.strip())])
+        for line in lines:
+            coords.append(int(line.strip()))
 
-    heights = []
-    for c in coords[-min(20, len(coords)):]:
-        heights.append(c[1])
-    highest_value = max(heights)
+    coords = coords[-min(20, len(coords)):]
+    highest_value = max(coords)
 
-    for i, c in enumerate(coords):
+    for i in range(len(coords)):
         if i < len(coords) - 1:
-            x1 = c[0] * width / len(coords)
-            y1 = height - c[1] * height / (highest_value + 1000)
-            x2 = coords[i + 1][0] * width / len(coords)
-            y2 = height - coords[i + 1][1] * height / (highest_value + 1000)
+            x1 = i * width / len(coords) + 1
+            y1 = height - coords[i] * height / (highest_value + 1000)
+            x2 = (i + 1) * width / len(coords)
+            y2 = height - (coords[i + 1]) * height / (highest_value + 1000)
             draw.line((x1, y1, x2, y2), fill=white, width=l_width)
     img.save("screenshot.jpg")
 
