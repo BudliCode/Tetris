@@ -96,7 +96,7 @@ def all_values(board, boardOld):
     values = []
     cleared_rows, board = calc_rows_ret_list(board)
 
-    values.append(cleared_rows)
+    values.extend(cleared_rows)
     values.append(calc_holes_diff(board, boardOld))
     values.append(calc_blocks_over_holes_diff(board, boardOld))
     values.append(calc_max_height(board))
