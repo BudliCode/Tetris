@@ -71,10 +71,10 @@ weight_replace_rate     = 0.1
 compatibility_threshold = 3.0
 
 [DefaultStagnation]
-species_fitness_func = max
-max_stagnation       = 4
-species_elitism      = 1
+species_fitness_func = mean
+max_stagnation       = 20
+species_elitism      = 2
 
-[DefaultReproduction]cd
+[DefaultReproduction]
 elitism            = 2
 survival_threshold = 0.2
