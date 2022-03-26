@@ -94,7 +94,7 @@ def copy_board(old_board):
 
 def all_values(board, boardOld):
     values = []
-    cleared_rows, board = calc_rows(board)
+    cleared_rows, board = calc_rows_ret_list(board)
 
     values.append(cleared_rows)
     values.append(calc_holes_diff(board, boardOld))
@@ -132,6 +132,17 @@ def calc_rows(board):
         value += 300
     elif rows == 4:
         value += 1200
+    return value, board
+
+
+def calc_rows_ret_list(board):
+    rows = 0
+    value = [0 for _ in range(4)]
+    for i, row in enumerate(board[:-1]):
+        if 0 not in row:
+            board = remove_row(board, i)
+            rows += 1
+    value[rows - 1] = 1
     return value, board
 
 
