@@ -62,7 +62,7 @@ def create_image(file):
         for line in lines:
             coords.append(int(line.strip()))
 
-    coords = coords[-min(20, len(coords)):]
+    coords = coords[-min(50, len(coords)):]
     highest_value = max(coords) + 1
     lowest_value = min(coords)
     intervall = highest_value - lowest_value
@@ -71,8 +71,8 @@ def create_image(file):
         if i < len(coords) - 1:
             x1 = i * width / len(coords)
             x2 = (i + 1) * width / len(coords)
-            y1 = height - (coords[i] - lowest_value) / intervall * height
-            y2 = height - (coords[i + 1] - lowest_value) / intervall * height
+            y1 = height - (coords[i] - lowest_value) / intervall * height - 1
+            y2 = height - (coords[i + 1] - lowest_value) / intervall * height - 1
             draw.line((x1, y1, x2, y2), fill=white, width=l_width)
     img.save("screenshot.jpg")
 
