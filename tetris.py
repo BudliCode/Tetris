@@ -226,6 +226,7 @@ class TetrisApp(object):
         self.moves_left = max_moves
         self.isAlive = True
         self.score = 0
+        self.tetrisse = 0
         self.board = new_board()
         self.tetris_shapes = []
         self.stone = None
@@ -319,6 +320,7 @@ class TetrisApp(object):
         elif c == 3:
             self.score += 300
         elif c == 4:
+            self.tetrisse += 1200
             self.score += 1200
         elif c > 4:
             print("Overscore:", c)

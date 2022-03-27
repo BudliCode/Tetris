@@ -43,7 +43,7 @@ def eval_genomes(genomes, config):
                 tetris.isAlive = False
             if not tetris.isAlive:
                 # ge[i].fitness = (time.time() - start_time) * (tetris.score + 1)
-                ge[i].fitness = tetris.score
+                ge[i].fitness = tetris.tetrisse
                 # print(i, "died:", ge[i].fitness)
                 tetri.pop(i)
                 ge.pop(i)
