@@ -72,7 +72,7 @@ def create_image(file):
             x1 = i * width / len(coords)
             x2 = (i + 1) * width / len(coords)
             y1 = height - (coords[i] - lowest_value) / intervall * height
-            y2 = height - (coords[i] - lowest_value) / intervall * height
+            y2 = height - (coords[i + 1] - lowest_value) / intervall * height
             draw.line((x1, y1, x2, y2), fill=white, width=l_width)
     img.save("screenshot.jpg")
 
