@@ -34,7 +34,7 @@ def det_best_fitness(file):
     with open(file, "r") as f:
         lines = f.readlines()
         for i, line in enumerate(lines):
-            if int(line) >= best_gen[0]:
+            if int(line) >= best_gen[1]:
                 best_gen = [i, int(line)]
     return best_gen
 
