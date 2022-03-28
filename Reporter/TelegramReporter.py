@@ -29,10 +29,14 @@ def add_score(file, score):
         f.write(str(int(score)) + "\n")
 
 
-def det_best_fitness(former_gen_values, current_gen_values):
-    if current_gen_values[1] > former_gen_values[1]:
-        return current_gen_values
-    return former_gen_values
+def det_best_fitness(file):
+    best_gen = [0, 0]
+    with open(file, "r") as f:
+        lines = f.readlines()
+        for i, line in enumerate(lines):
+            if int(line) >= best_gen[0]:
+                best_gen = [i, int(line)]
+    return best_gen
 
 
 def get_average_fitness(file):
@@ -120,7 +124,7 @@ class TelegramReporter(BaseReporter):
     def end_generation(self, config, population, species_set):
         best_fitness_of_gen = get_best_fitness_of_gen(species_set)
         add_score(self.score_file, best_fitness_of_gen)
-        self.best_fitness = det_best_fitness(self.best_fitness, (self.current_gen, best_fitness_of_gen))
+        self.best_fitness = det_best_fitness(self.score_file)
         average_fitness = get_average_fitness(self.score_file)
         message = create_message((
             self.current_gen,
