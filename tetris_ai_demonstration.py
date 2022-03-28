@@ -142,7 +142,8 @@ class TetrisApp(object):
                            self.stone,
                            (self.stone_x, self.stone_y)):
             self.isAlive = False
-        self.calc_move()
+        if self.is_bot:
+            self.calc_move()
 
     def draw_matrix(self, matrix, offset):
         off_x, off_y = offset
@@ -216,6 +217,7 @@ class TetrisApp(object):
             self.hold = self.stone
             self.stone = temp_hold
             self.stone_y = 0
+            self.stone_x = int(config_game['cols'] / 2 - len(self.stone[0]) / 2)
         else:
             self.hold = self.stone
             self.new_stone()
@@ -250,16 +252,12 @@ class TetrisApp(object):
 
         if c == 1:
             self.score += 40
-            print("1!")
         elif c == 2:
             self.score += 100
-            print("2!")
         elif c == 3:
             self.score += 300
-            print("3!")
         elif c == 4:
             self.score += 1200
-            print("Tetris!!!")
         elif c > 4:
             print("Overscore:", c)
 
@@ -333,7 +331,6 @@ class TetrisApp(object):
             for i in range(abs(best_move[2] - self.stone_x)):
                 self.next_moves.append("right")
         self.next_moves.append("dropdown")
-        print(self.next_moves)
 
     def get_best_move(self, all_possibilities):
         bm = all_possibilities[0]
@@ -367,6 +364,7 @@ def manual():
     tetri = [TetrisApp(t) for t in range(2)]
     tetri[1].is_bot = True
     tetri[1].net = net
+    tetri[1].new_stone()
     dont_burn_my_cpu = pygame.time.Clock()
     while 1:
         for event in pygame.event.get():
