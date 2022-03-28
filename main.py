@@ -15,7 +15,7 @@ def get_last_checkpoint():
     for file in os.listdir(directory):
         filename = str(os.fsdecode(file)).split("-")
         if filename[:2] == ['neat', 'checkpoint']:
-            check_points.append(filename[2])
+            check_points.append(int(filename[2]))
     if len(check_points) == 0:
         return None
     return "-".join(("neat", "checkpoint", str(max(check_points))))
