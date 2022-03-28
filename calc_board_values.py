@@ -66,7 +66,8 @@ def calc_rows_ret_list(board):
         if 0 not in row:
             board = remove_row(board, i)
             rows += 1
-    value[rows - 1] = 1
+    if rows > 0:
+        value[rows - 1] = 1
     return value, board
 
 
