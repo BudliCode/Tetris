@@ -1,4 +1,3 @@
-import datetime
 import os
 import sys
 
@@ -7,6 +6,19 @@ from neat import Checkpointer
 from Reporter.TelegramReporter import TelegramReporter
 import neat
 import pygame
+
+
+def get_last_checkpoint():
+    directory = os.path.dirname(os.path.abspath(__file__))
+
+    check_points = []
+    for file in os.listdir(directory):
+        filename = str(os.fsdecode(file)).split("-")
+        if filename[:2] == ['neat', 'checkpoint']:
+            check_points.append(filename[2])
+    if len(check_points) == 0:
+        return None
+    return "-".join(("neat", "checkpoint", str(max(check_points))))
 
 
 def eval_genomes(genomes, config):
@@ -68,8 +80,13 @@ def run(config_path):
         config_path
     )
 
-    pop = neat.Population(config)
-    # pop = neat.Checkpointer.restore_checkpoint("neat-checkpoint-13")
+    directory = get_last_checkpoint()
+
+    if directory:
+        pop = neat.Checkpointer.restore_checkpoint(directory)
+    else:
+        pop = neat.Population(config)
+
     # pop.add_reporter(neat.StdOutReporter(True))
     # stats = neat.StatisticsReporter()
     # pop.add_reporter(stats)
@@ -91,6 +108,7 @@ if __name__ == '__main__':
     Grafisch = False
 
     from tetris import config_game
+
     if Grafisch:
         from TetrisGrafik import TetrisGrafik as TetrisApp, screen
     else:
