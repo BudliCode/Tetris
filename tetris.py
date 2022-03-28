@@ -1,7 +1,7 @@
 import random
 
 # The configuration
-from calc_board_values import all_values
+from calc_board_values import *
 from constants import *
 
 
@@ -40,16 +40,6 @@ def new_board():
              for _ in range(config_game['rows'])]
     board += [[1 for _ in range(config_game['cols'])]]
     return board
-
-
-def copy_board(old_board):
-    new_board = []
-    for r in old_board:
-        columns = []
-        for c in r:
-            columns.append(c)
-        new_board.append(columns)
-    return new_board
 
 
 class TetrisApp(object):

@@ -1,6 +1,16 @@
 from constants import *
 
 
+def copy_board(old_board):
+    new_board = []
+    for r in old_board:
+        columns = []
+        for c in r:
+            columns.append(c)
+        new_board.append(columns)
+    return new_board
+
+
 def remove_row(board, row):
     del board[row]
     return [[0 for _ in range(config_game['cols'])]] + board
