@@ -66,7 +66,7 @@ def create_image(file):
         for line in lines:
             coords.append(int(line.strip()))
 
-    coords = coords[-min(200, len(coords)):]
+    coords = coords[-min(1000, len(coords)):]
     highest_value = max(coords) + 1
     lowest_value = min(coords)
     intervall = highest_value - lowest_value
