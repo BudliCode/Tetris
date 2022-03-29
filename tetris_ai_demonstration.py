@@ -366,15 +366,26 @@ def manual():
     tetri[1].net = net
     tetri[1].new_stone()
     dont_burn_my_cpu = pygame.time.Clock()
+    is_pause = True
+
+    for i, tetris in enumerate(tetri):
+        if not tetris.isAlive:
+            continue
+        tetris.update()
+
     while 1:
+        pygame.display.update()
+        dont_burn_my_cpu.tick(config_game['maxfps'])
         for event in pygame.event.get():
-            if event.type == pygame.USEREVENT + 1:
-                for tetris in tetri:
-                    tetris.drop()
-            elif event.type == pygame.QUIT:
-                pygame.quit()
-                sys.exit()
-            elif event.type == pygame.KEYDOWN:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_p:
+                    if is_pause:
+                        is_pause = False
+                        pygame.mixer.music.unpause()
+                    else:
+                        is_pause = True
+                        pygame.mixer.music.pause()
+
                 if event.key == pygame.K_LEFT:
                     tetri[player].move(-1)
                 elif event.key == pygame.K_RIGHT:
@@ -387,22 +398,32 @@ def manual():
                     tetri[player].drop()
                 elif event.key == pygame.K_SPACE:
                     tetri[player].drop_down()
+            if is_pause:
+                continue
+            elif event.type == pygame.USEREVENT + 1:
+                for tetris in tetri:
+                    tetris.drop()
+            elif event.type == pygame.QUIT:
+                pygame.quit()
+                sys.exit()
+
+        if is_pause:
+            continue
 
         for i, tetris in enumerate(tetri):
             if not tetris.isAlive:
                 continue
             tetris.update()
-        pygame.display.update()
-        dont_burn_my_cpu.tick(config_game['maxfps'])
 
 
 if __name__ == '__main__':
     pygame.init()
 
     pygame.mixer.init()
-    pygame.mixer.music.load("hintergrund_musik.mp3")
+    pygame.mixer.music.load("hintergrund_musik.ogg")
     pygame.mixer.music.set_volume(0.3)
     pygame.mixer.music.play(-1)
+    pygame.mixer.music.pause()
 
     pygame.key.set_repeat(250, 25)
 
