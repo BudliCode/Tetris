@@ -398,6 +398,12 @@ def manual():
 
 if __name__ == '__main__':
     pygame.init()
+
+    pygame.mixer.init()
+    pygame.mixer.music.load("hintergrund_musik.mp3")
+    pygame.mixer.music.set_volume(0.3)
+    pygame.mixer.music.play(-1)
+
     pygame.key.set_repeat(250, 25)
 
     field_width = config_game['cell_size'] * config_game['cols']
