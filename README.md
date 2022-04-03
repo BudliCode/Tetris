@@ -1,5 +1,10 @@
 # Tetris
 Tetris mit Ai
+Eine lernende Ai, welche auf einem Bolohnungs-System basiert.
+Das Tetrisspiel haben wir selbst geschrieben. Die Need-AI haben wir aus dem Internet geborgt.
+
+
+
 # Warum wir genau die richtigen für diesen Job sind!
 Wir sind ein zusammengestelltes Team aus Ehemaligen top Elite Programierern, die vor nichts zurückschrecken!
 
