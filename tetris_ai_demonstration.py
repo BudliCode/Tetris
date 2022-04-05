@@ -436,7 +436,7 @@ if __name__ == '__main__':
     pygame.event.set_blocked(pygame.MOUSEMOTION)
     pygame.time.set_timer(pygame.USEREVENT + 1, config_game['delay'])
 
-    config, pop = restore_checkpoint("neat-checkpoint-106")
+    config, pop = restore_checkpoint("neat-checkpoint-286")
     genome = best_genome(pop)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
 
