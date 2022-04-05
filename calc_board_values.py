@@ -66,10 +66,8 @@ def calc_rows_ret_list(board):
         if 0 not in row:
             board = remove_row(board, i)
             rows += 1
-    if 5 > rows > 0:
+    if rows > 0:
         value[rows - 1] = 1
-    elif rows > 4:
-        value[3] = 1
     return value, board
 
 
