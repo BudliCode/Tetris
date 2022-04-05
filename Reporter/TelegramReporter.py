@@ -101,7 +101,7 @@ class TelegramMessageHandler:
         if self.last_message_id:
             bot.deleteMessage((self.chat_id, self.last_message_id))
         if self.grafisch:
-            message_info = bot.sendPhoto(self.chat_id,open("screenshot.jpg", "rb"), message)
+            message_info = bot.sendPhoto(self.chat_id, open("screenshot.jpg", "rb"), message)
         else:
             message_info = bot.sendMessage(self.chat_id, message)
         self.last_message_id = message_info["message_id"]
