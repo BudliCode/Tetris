@@ -1,5 +1,5 @@
 # Tetris
-Eine lernende Intelligenz, welche auf einem Belohnungs-System basiert.
+In diesem Projekt haben wir eine künstliche Intelligenz verwirklicht, welche das Spiel Tetris spielen kann. Hierfür verwenden wir die Bibliothek [NEAT](https://neat-python.readthedocs.io/en/latest/), welche für die Entwicklung der einzelnen Individuen über die Populationen zuständig ist.
 
 Das Github-Projekt besteht aus folgenden Einzelelementen:
 1. Programm, welches die KI trainiert und das Verhalten visualisiert
@@ -12,12 +12,31 @@ Damit alle Python-Skripte einwandfrei funktionieren, werden folgende Module ben�
 3. telepot um mithilfe des Telegram-Bots Nachrichten zu verschicken
 4. PILLOW um den Verlauf der Generationen in eine Grafik umwandeln zu können.
 
-Die künstliche Intelligenz verwendet NEAT (NeuroEvolution of Augmenting Topologies).
+__Hauptprogramm__
+
+Die Tetrisskripte basieren auf einem simplen Tetrisklon, der [hier](https://gist.github.com/silvasur/565419/d9de6a84e7da000797ac681976442073045c74a4) zu finden ist. Um eine einigermaßen gute Intelligenz zu trainieren, lassen wir 50 Individuen gegeneinander antreten. Sobald diese Individuen die Gelegenheit bekommen einen Stein zu platzieren, gehen sie alle möglichen Positionen des Steins durch und suchen nach der aus ihrer Sicht besten Position. Diese verschiedenen Positionen können sie mithilfe von bestimmten Parametern unterscheiden und beurteilen.
+Diese Parameter sind folgende:
+1. Wie viele Punkte werden erzielt?
+2. Entstehen/verschwinden irgendwelche Löcher?
+3. Landen Blöcke auf Löchern?
+4. Wie hoch sind die Blöcke insgesamt?
+5. Wie hoch stehen die Blöcke an den Rändern?
+6. Wie groß sind die generellen Höhenunterschiede?
+
+Basierend auf diesen Inputs bewertet die KI die einzelnen Positionen. Nachdem alle Positionen durchgerechnet wurden, wird die Position mit der besten Bewertung ausgewählt.
+Sobald alle Individuen gestorben sind, dürfen die Individuen, welche die Positionen am besten bewertet haben und somit die meisten Punkte erzielen konnten sich weiter vermehren und ihre Eigenschaften weiter ausbauen.
+Die größe der Population, sowie die Regeln, wie sich die Individuen weiter vermehren, sind in der config.txt Datei definiert worden. Weitere Informationen über die Parameter in der config.txt finden sich [hier](https://neat-python.readthedocs.io/en/latest/config_file.html)
+
+__TelegramBot__
 
 Um den TelegramBot verwenden zu können, muss in die token.txt Datei in die erste Zeile der Token und in die zweite Zeile die chat_id geschrieben werden.
 Will der Anwender auf den TelegramBot verzichten, müssen die beiden markierten Zeilen in der main.py Datei auskommentiert werden.
 
+__Herausforderungsmodus__
+
 Um gegen den Bot antreten zu können, muss im Skript tetris_ai_demonstration.py die Zieldatei in den Namen der Generation umbenannt werden, gegen die der Spieler antreten will. Um den Schwierigkeitsgrad anpassen zu können, kann die Reaktionszeit des Bots angepasst werden.
+
+
 
 # Warum wir genau die richtigen für diesen Job sind!
 Wir sind ein zusammengestelltes Team aus Ehemaligen top Elite Programmierern, die vor nichts zurückschrecken!
