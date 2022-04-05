@@ -91,30 +91,25 @@ def create_message(info):
 
 
 class TelegramMessageHandler:
-    def __init__(self, grafisch):
+    def __init__(self):
         self.last_message_id = None
         self.token, self.chat_id = get_token()
-        self.grafisch = grafisch
 
     def send_message(self, message):
         bot = telepot.Bot(self.token)
         if self.last_message_id:
             bot.deleteMessage((self.chat_id, self.last_message_id))
-        if self.grafisch:
-            message_info = bot.sendPhoto(self.chat_id, open("screenshot.jpg", "rb"), message)
-        else:
-            message_info = bot.sendMessage(self.chat_id, message)
+        message_info = bot.sendPhoto(self.chat_id, open("screenshot.jpg", "rb"), message)
         self.last_message_id = message_info["message_id"]
 
 
 class TelegramReporter(BaseReporter):
-    def __init__(self, graphic=True, file="score.txt"):
+    def __init__(self, file="score.txt"):
         BaseReporter.__init__(self)
-        self.graphic = graphic
         self.score_file = file
         self.current_gen = 0
         self.best_fitness = [0, 0]
-        self.message_handler = TelegramMessageHandler(graphic)
+        self.message_handler = TelegramMessageHandler()
 
     def start_generation(self, generation):
         self.current_gen = generation
@@ -133,9 +128,6 @@ class TelegramReporter(BaseReporter):
             self.best_fitness[1],
             average_fitness
         ))
-        if self.graphic:
-            create_image(self.score_file)
-            self.message_handler.send_message(message)
-            os.remove("screenshot.jpg")
-        else:
-            self.message_handler.send_message(message)
+        create_image(self.score_file)
+        self.message_handler.send_message(message)
+        os.remove("screenshot.jpg")

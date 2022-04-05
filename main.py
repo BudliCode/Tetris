@@ -87,17 +87,12 @@ def run(config_path):
     else:
         pop = neat.Population(config)
 
-    # pop.add_reporter(neat.StdOutReporter(True))
-    # stats = neat.StatisticsReporter()
-    # pop.add_reporter(stats)
     checkpoint = Checkpointer(generation_interval=10)
     pop.add_reporter(checkpoint)
-    tele = TelegramReporter(True)
+    # Die nächsten zwei Zeilen auskommentieren, um den TelegramBot zu deaktivieren
+    tele = TelegramReporter()
     pop.add_reporter(tele)
-    winner = pop.run(eval_genomes, 10000)
-    # visualize.draw_net(config, winner, True, node_names=node_names)
-    # visualize.plot_stats(stats, ylog=False, view=True)
-    # visualize.plot_species(stats, view=True)
+    pop.run(eval_genomes, 10000)
 
 
 if __name__ == '__main__':
@@ -105,6 +100,7 @@ if __name__ == '__main__':
     local_dir = os.path.dirname(__file__)
     config_path = os.path.join(local_dir, "config.txt")
 
+    # Möglichkeit die grafische Benutzeroberfläche zu deaktivieren, um die Performance zu steigern
     Grafisch = False
 
     from tetris import config_game
