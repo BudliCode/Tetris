@@ -24,7 +24,7 @@ Mit unserer Jahre langen Erfahrung sind wir mit Abstand die besten in allem und 
 
 Die Köpfe der ganzen Operation sind die super Genies Brian & Pier, mit ihren starken Argumenten schaffen sie es das Team aus kniffligen Situationen zu befreien und den Tag für **ALLE** zu retten!
 
-"Its about drive its about power we stay hungry we devour put in the work put in the hours and take what's ours" Birger M. 01.01.0001 N. Chr.!
+"It's about drive its about power we stay hungry we devour put in the work put in the hours and take what's ours" Birger M. 01.01.0001 N. Chr.!
 
 Mit diesem Zitat zeigt Birger wieder einmal, dass er ein direkter Nachfahre Jesus Kistus ist, was man auch an seinen langen Haaren und seiner Fähigkeit 6-stellige Nummern herauszufinden sehen kann!
 
@@ -36,7 +36,7 @@ Wir sind z.B. bekannt in allen 18 Dragonball Multiversen durch unseren epischen 
 
 Durch unseren atemberaubenden zerstörerischen Kampf kam es zu der Zerstörung von 6 der 18 Multiversen!
 
-Unter anderem haben wir auch Shaggy aus Scoopy Doo vernichtend geschlagen, während er **100%** seiner Power benutzten musste!
+Unter anderem haben wir auch Shaggy aus Scooby Doo vernichtend geschlagen, während er **100%** seiner Power benutzten musste!
 
 
 ![](https://github.com/BudliCode/Tetris/blob/main/GIF/programmer-programming.gif)
