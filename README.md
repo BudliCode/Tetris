@@ -12,6 +12,8 @@ Damit alle Python-Skripte einwandfrei funktionieren, werden folgende Module ben�
 3. telepot um mithilfe des Telegram-Bots Nachrichten zu verschicken
 4. PILLOW um den Verlauf der Generationen in eine Grafik umwandeln zu können.
 
+Die künstliche Intelligenz verwendet NEAT (NeuroEvolution of Augmenting Topologies).
+
 Um den TelegramBot verwenden zu können, muss in die token.txt Datei in die erste Zeile der Token und in die zweite Zeile die chat_id geschrieben werden.
 Will der Anwender auf den TelegramBot verzichten, müssen die beiden markierten Zeilen in der main.py Datei auskommentiert werden.
 
