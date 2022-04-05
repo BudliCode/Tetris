@@ -185,8 +185,8 @@ class TetrisApp(object):
                     self.board,
                     self.stone,
                     (self.stone_x, self.stone_y))
-                self.new_stone()
                 self.calc_score()
+                self.new_stone()
 
     def drop_down(self):
         if self.isAlive:
@@ -199,8 +199,8 @@ class TetrisApp(object):
                         self.board,
                         self.stone,
                         (self.stone_x, self.stone_y))
-                    self.new_stone()
                     self.calc_score()
+                    self.new_stone()
                     return
 
     def rotate_stone(self):
@@ -385,6 +385,8 @@ def manual():
                     else:
                         is_pause = True
                         pygame.mixer.music.pause()
+                if player >= len(tetri):
+                    continue
 
                 if event.key == pygame.K_LEFT:
                     tetri[player].move(-1)
@@ -436,7 +438,7 @@ if __name__ == '__main__':
     pygame.event.set_blocked(pygame.MOUSEMOTION)
     pygame.time.set_timer(pygame.USEREVENT + 1, config_game['delay'])
 
-    config, pop = restore_checkpoint("neat-checkpoint-286")
+    config, pop = restore_checkpoint("neat-checkpoint-393")
     genome = best_genome(pop)
     net = neat.nn.FeedForwardNetwork.create(genome, config)
 
