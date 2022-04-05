@@ -1,7 +1,7 @@
 # Tetris
 Tetris mit Ai
 Eine lernende Ai, welche auf einem Bolohnungs-System basiert.
-Das Tetrisspiel haben wir selbst geschrieben. Die Need-AI haben wir aus dem Internet geborgt.
+Das Tetrisspiel haben wir selbst geschrieben. Die NEAT-AI haben wir aus dem Internet geborgt.
 
 
 
