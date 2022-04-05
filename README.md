@@ -25,17 +25,22 @@ Diese Parameter sind folgende:
 
 Basierend auf diesen Inputs bewertet die KI die einzelnen Positionen. Nachdem alle Positionen durchgerechnet wurden, wird die Position mit der besten Bewertung ausgewählt.
 Sobald alle Individuen gestorben sind, dürfen die Individuen, welche die Positionen am besten bewertet haben und somit die meisten Punkte erzielen konnten sich weiter vermehren und ihre Eigenschaften weiter ausbauen.
-Die größe der Population, sowie die Regeln, wie sich die Individuen weiter vermehren, sind in der config.txt Datei definiert worden. Weitere Informationen über die Parameter in der config.txt finden sich [hier](https://neat-python.readthedocs.io/en/latest/config_file.html)
+Die größe der Population, sowie die Regeln, wie sich die Individuen weiter vermehren, sind in der `config.txt` Datei definiert worden. Weitere Informationen über die Parameter in der `config.txt` finden sich [hier](https://neat-python.readthedocs.io/en/latest/config_file.html).
+
+Die visuelle Darstellung lässt sich zur Verbesserung deaktivieren, indem der Boolean `Grafisch = False` gesetzt wird.
 
 __TelegramBot__
 
-Um den TelegramBot verwenden zu können, muss in die token.txt Datei in die erste Zeile der Token und in die zweite Zeile die chat_id geschrieben werden.
-Will der Anwender auf den TelegramBot verzichten, müssen die beiden markierten Zeilen in der main.py Datei auskommentiert werden.
+Um den TelegramBot verwenden zu können, muss in die `token.txt` Datei in die erste Zeile der Token und in die zweite Zeile die chat_id geschrieben werden.
+Will der Anwender auf den TelegramBot verzichten, müssen die beiden markierten Zeilen in der `main.py` Datei auskommentiert werden:
+```
+    tele = TelegramReporter()
+    pop.add_reporter(tele)
+```
 
 __Herausforderungsmodus__
 
-Um gegen den Bot antreten zu können, muss im Skript tetris_ai_demonstration.py die Zieldatei in den Namen der Generation umbenannt werden, gegen die der Spieler antreten will. Um den Schwierigkeitsgrad anpassen zu können, kann die Reaktionszeit des Bots angepasst werden.
-
+Um gegen den Bot antreten zu können, muss im Skript `tetris_challenge.py` die Zieldatei in den Namen der Generation umbenannt werden, gegen die der Spieler antreten will. Um den Schwierigkeitsgrad anpassen zu können, kann die Reaktionszeit des Bots angepasst werden: `'delay': 750,`
 
 
 # Warum wir genau die richtigen für diesen Job sind!
