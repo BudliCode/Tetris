@@ -81,7 +81,7 @@ field_width = config_game['cell_size'] * config_game['cols']
 field_height = config_game['cell_size'] * (config_game['rows'] + 14)
 
 width = field_width * config_game['games_per_row'] + config_game['space'] * (config_game['games_per_row'] - 1)
-height = field_height * 2
+height = field_height * config_game['games_per_column']
 pygame.init()
 
 screen = pygame.display.set_mode((width, height))

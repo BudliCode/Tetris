@@ -6,6 +6,7 @@ config_game = {
     'cols': 10,
     'rows': 20,
     'games_per_row': 5,
+    'games_per_column': 3,
     'max_moves': 8000
 }
 
