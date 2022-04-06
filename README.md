@@ -29,6 +29,10 @@ Die größe der Population, sowie die Regeln, wie sich die Individuen weiter ver
 
 Die visuelle Darstellung lässt sich zur Verbesserung deaktivieren, indem der Boolean `Grafisch = False` gesetzt wird.
 
+![Grafik der Challenge](/GIF/main_screen.jpg)
+
+Es ist zu sehen, dass einige KIs besser performen als Andere
+
 __TelegramBot__
 
 Um den TelegramBot verwenden zu können, muss in die `token.txt` Datei in die erste Zeile der Token und in die zweite Zeile die chat_id geschrieben werden.
@@ -38,10 +42,28 @@ Will der Anwender auf den TelegramBot verzichten, müssen die beiden markierten 
     pop.add_reporter(tele)
 ```
 
+![Telegram Visualisierung](/GIF/Telegram_Visualisierung.png)
+
+So sieht die Telegramvisualisierung aus
+
 __Herausforderungsmodus__
 
-Um gegen den Bot antreten zu können, muss im Skript `tetris_challenge.py` die Zieldatei in den Namen der Generation umbenannt werden, gegen die der Spieler antreten will. Um den Schwierigkeitsgrad anpassen zu können, kann die Reaktionszeit des Bots angepasst werden: `'delay': 750,`
+Um gegen den Bot antreten zu können, muss im Skript `tetris_challenge.py` die Zieldatei in den Namen der Generation umbenannt werden, gegen die der Spieler antreten will. Um den Schwierigkeitsgrad anpassen zu können, kann die Reaktionszeit des Bots angepasst werden:
 
+`self.delay = datetime.timedelta(milliseconds=200)`
+
+Die Steuerung funktioniert wie folgt:
+1. Pause/Unpause: P
+2. Move Left: Pfeiltaste Links
+3. Move Right: Pfeiltaste Rechts
+4. Rotate: Pfeiltaste Up
+5. Drop: Pfeiltaste Down
+6. Dropdown: Leertaste
+7. Hold/Switch Hold: H
+
+![Die Challenge](/GIF/challenge.jpg)
+
+Es ist zu sehen, dass die KI (rechts) enorm hohe Punktzahlen erzielt.
 
 # Warum wir genau die richtigen für diesen Job sind!
 Wir sind ein zusammengestelltes Team aus Ehemaligen top Elite Programmierern, die vor nichts zurückschrecken!
