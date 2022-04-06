@@ -243,6 +243,30 @@ class TetrisApp(object):
                          1
                          )
 
+    def draw_lines(self):
+        c = 0
+        for i in self.stone[0]:
+            if i != 0:
+                c = i
+                break
+        col = colors[c]
+        pygame.draw.line(
+            screen,
+            col,
+            (self.pos * (field_width + config_game['space']) + self.stone_x * config_game['cell_size'],
+             0),
+            (self.pos * (field_width + config_game['space']) + self.stone_x * config_game['cell_size'],
+             config_game['rows'] * config_game['cell_size'])
+        )
+        pygame.draw.line(
+            screen,
+            col,
+            (self.pos * (field_width + config_game['space']) + (self.stone_x + len(self.stone[0])) * config_game['cell_size'],
+             0),
+            (self.pos * (field_width + config_game['space']) + (self.stone_x + len(self.stone[0])) * config_game['cell_size'],
+             config_game['rows'] * config_game['cell_size'])
+        )
+
     def calc_score(self):
         c = 0
         for i, row in enumerate(self.board[:-1]):
@@ -287,6 +311,7 @@ class TetrisApp(object):
         self.draw_matrix(self.stone,
                          (self.stone_x,
                           self.stone_y))
+        self.draw_lines()
         self.draw_hold()
         self.draw_next_stones()
         self.draw_frame()
@@ -432,7 +457,7 @@ if __name__ == '__main__':
 
     field_width = config_game['cell_size'] * config_game['cols']
     field_height = config_game['cell_size'] * (config_game['rows'] + 14)
-    width = field_width * config_game['games'] + config_game['space'] * (config_game['games']-1)
+    width = field_width * config_game['games'] + config_game['space'] * (config_game['games'] - 1)
     height = field_height
 
     screen = pygame.display.set_mode((width, height))
