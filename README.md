@@ -1,5 +1,5 @@
 # Tetris
-In diesem Projekt haben wir eine künstliche Intelligenz verwirklicht, welche das Spiel Tetris spielen kann. Hierfür verwenden wir die Bibliothek [NEAT](https://neat-python.readthedocs.io/en/latest/), welche für die Entwicklung der einzelnen Individuen über die Populationen zuständig ist.
+In diesem Projekt haben wir eine künstliche Intelligenz verwirklicht, welche das Spiel Tetris spielen kann. Hierfür verwenden wir die Bibliothek [NEAT](https://neat-python.readthedocs.io/en/latest/), welche für die Entwicklung der einzelnen Individuen über die Populationen zuständig ist. Zum lernen versucht die Intelligenz die maximale Anzahl an Tetrissen in einer bestimmten Anzahl an Zügen zu erreichen.
 
 Das Github-Projekt besteht aus folgenden Einzelelementen:
 1. Programm, welches die KI trainiert und das Verhalten visualisiert
@@ -24,7 +24,7 @@ Diese Parameter sind folgende:
 6. Wie groß sind die generellen Höhenunterschiede?
 
 Basierend auf diesen Inputs bewertet die KI die einzelnen Positionen. Nachdem alle Positionen durchgerechnet wurden, wird die Position mit der besten Bewertung ausgewählt.
-Sobald alle Individuen gestorben sind, dürfen die Individuen, welche die Positionen am besten bewertet haben und somit die meisten Punkte erzielen konnten sich weiter vermehren und ihre Eigenschaften weiter ausbauen.
+Sobald alle Individuen gestorben sind, dürfen die Individuen, welche die Positionen am besten bewertet haben und somit die meisten Tetrisse erzielen konnten sich weiter vermehren und ihre Eigenschaften weiter ausbauen.
 Die größe der Population, sowie die Regeln, wie sich die Individuen weiter vermehren, sind in der `config.txt` Datei definiert worden. Weitere Informationen über die Parameter in der `config.txt` finden sich [hier](https://neat-python.readthedocs.io/en/latest/config_file.html).
 
 Die visuelle Darstellung lässt sich zur Verbesserung deaktivieren, indem der Boolean `Grafisch = False` gesetzt wird.
@@ -64,6 +64,21 @@ Die Steuerung funktioniert wie folgt:
 ![Die Challenge](/GIF/challenge.jpg)
 
 Es ist zu sehen, dass die KI (rechts) enorm hohe Punktzahlen erzielt.
+
+<br>
+Als inspirative Quellen dienten folgende Seiten:
+
+Die Tutorialreihe von Code Bucket <br>
+https://www.youtube.com/watch?v=c4CjmTxokeo&list=PL30AETbxgR-d03tf_HIr8-OA1gmClI3mE
+
+Das humoristische Video von Code Bullet <br>
+https://www.youtube.com/watch?v=os4DcbpL0Nc
+
+
+Falls eine neugierige und kreative Person das Programm erweitern will, so kann sie sich an zusätzlichen Teilprojekten versuchen:
+1. Das Hinzufügen von Rotationsachsen für die Steine
+2. Das Verändern der Inputs
+3. Das Erstellen eines Skriptes, welches die KI verwendet, um Internetseiten zu dominieren
 
 # Warum wir genau die richtigen für diesen Job sind!
 Wir sind ein zusammengestelltes Team aus Ehemaligen top Elite Programmierern, die vor nichts zurückschrecken!
