@@ -118,6 +118,7 @@ class TetrisApp(object):
         self.is_bot = False
         self.net = None
         self.start_time = datetime.datetime.now()
+        # Folgenden Wert ändern, um die Reaktionszeit des Bots anzupassen
         self.delay = datetime.timedelta(milliseconds=200)
         self.next_moves = []
 
